@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useClickEffects } from "../../hooks/useClickEffects";
 import Link from "next/link";
 import Footer from "../../components/Footer";
+import WaterSurfaceBackground from '../../components/waterSurface';
 
 export default function About() {
   const { containerRef, clickEffects, handlePageClick } = useClickEffects();
@@ -12,7 +13,6 @@ export default function About() {
   const navRef = useRef<HTMLDivElement>(null);
   const decorativeElementsRef = useRef<HTMLDivElement[]>([]);
   const backgroundPatternsRef = useRef<HTMLDivElement[]>([]);
-
 
   useEffect(() => {
     const animateElements = () => {
@@ -210,16 +210,22 @@ export default function About() {
           {/* Introduction Section */}
           <section
             ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
             style={{ background: '#E3EAF7', boxShadow: '0 4px 32px 0 #ABBAA930' }}
           >
-            <div className="lg:col-span-3 space-y-4">
+            <WaterSurfaceBackground 
+              opacity={0.08} 
+              speed={0.25} 
+              className="rounded-3xl"
+              enableRipples={false}
+            />
+            <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Introduction
               </div>
               <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
             </div>
-            <div className="lg:col-span-9 space-y-8">
+            <div className="lg:col-span-9 space-y-8 relative z-10">
               <div className="text-3xl md:text-4xl font-light leading-tight">
                 A student passionate about the intersection of
                 <span className="text-[#ABBAA9]"> technology </span>
@@ -240,16 +246,22 @@ export default function About() {
           {/* Skills Section */}
           <section
             ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
             style={{ background: '#ECE6F7', boxShadow: '0 4px 32px 0 #ABBAA930' }}
           >
-            <div className="lg:col-span-3 space-y-4">
+            <WaterSurfaceBackground 
+              opacity={0.1} 
+              speed={0.35} 
+              className="rounded-3xl"
+              enableRipples={false}
+            />
+            <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Expertise
               </div>
               <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
             </div>
-            <div className="lg:col-span-9 space-y-12">
+            <div className="lg:col-span-9 space-y-12 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <div className="text-xl font-light text-[#ABBAA9]">Frontend Development</div>
@@ -294,16 +306,22 @@ export default function About() {
           {/* Philosophy Section */}
           <section
             ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
             style={{ background: '#F7F3E6', boxShadow: '0 4px 32px 0 #ABBAA930' }}
           >
-            <div className="lg:col-span-3 space-y-4">
+            <WaterSurfaceBackground 
+              opacity={0.06} 
+              speed={0.4} 
+              className="rounded-3xl"
+              enableRipples={false}
+            />
+            <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Philosophy
               </div>
               <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
             </div>
-            <div className="lg:col-span-9 space-y-8">
+            <div className="lg:col-span-9 space-y-8 relative z-10">
               <div className="text-2xl md:text-3xl font-light leading-tight">
                 "Excellence is not a destination,
                 <br />
@@ -323,16 +341,22 @@ export default function About() {
           {/* Current Focus Section */}
           <section
             ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
             style={{ background: '#E6F7F3', boxShadow: '0 4px 32px 0 #ABBAA930' }}
           >
-            <div className="lg:col-span-3 space-y-4">
+            <WaterSurfaceBackground 
+              opacity={0.12} 
+              speed={0.3} 
+              className="rounded-3xl"
+              enableRipples={false}
+            />
+            <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Current Focus
               </div>
               <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
             </div>
-            <div className="lg:col-span-9 space-y-8">
+            <div className="lg:col-span-9 space-y-8 relative z-10">
               <div className="text-2xl md:text-3xl font-light leading-tight">
                 Exploring the future of
                 <span className="text-[#ABBAA9]"> interactive experiences</span>
