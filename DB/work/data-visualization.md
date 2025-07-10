@@ -1,6 +1,10 @@
+---
 title: Data Visualization
 category: Frontend
-tech: ["D3.js", "Vue.js", "Python"]
+tech:
+  - D3.js
+  - Vue.js
+  - Python
 size: 3x2
 color: from-[#ABBAA9]/20 to-[#ABBAA9]/10
 date: 2025-07-08

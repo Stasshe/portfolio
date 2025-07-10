@@ -1,6 +1,10 @@
+---
 title: Chat Application
 category: Full-Stack
-tech: ["React", "Socket.io", "Redis"]
+tech:
+  - React
+  - Socket.io
+  - Redis
 size: 1x1
 color: from-[#ABBAA9]/16 to-[#ABBAA9]/8
 date: 2025-06-25

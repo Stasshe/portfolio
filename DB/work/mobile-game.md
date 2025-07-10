@@ -1,6 +1,9 @@
+---
 title: Mobile Game
 category: iOS Development
-tech: ["Swift", "SpriteKit"]
+tech:
+  - Swift
+  - SpriteKit
 size: 2x1
 color: from-[#ABBAA9]/15 to-[#ABBAA9]/8
 date: 2025-06-15
