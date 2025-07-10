@@ -103,25 +103,34 @@ export default function Home() {
       }
     };
 
-    // Floating animation for background patterns
+    // Floating & parallax animation for background patterns
     const animateBackgroundPatterns = () => {
-      backgroundPatternsRef.current.forEach((element, index) => {
-        if (element) {
-          const delay = index * 500;
-          const duration = 3000 + (index * 200);
-          const amplitude = 15 + (index * 5);
-          
-          const animate = () => {
-            element.style.transition = `transform ${duration}ms ease-in-out`;
-            element.style.transform = `translate(${Math.sin(Date.now() / 1000 + index) * amplitude}px, ${Math.cos(Date.now() / 1000 + index) * amplitude}px)`;
-          };
-          
-          setTimeout(() => {
-            animate();
-            setInterval(animate, duration);
-          }, delay);
-        }
-      });
+      // 各要素に個別のパラメータを割り当て
+      const params = backgroundPatternsRef.current.map((_, i) => ({
+        amplitude: 15 + i * 8,
+        speed: 0.15 + i * 0.07,
+        direction: i % 2 === 0 ? 1 : -1,
+        baseX: 0,
+        baseY: 0,
+        phase: Math.random() * Math.PI * 2,
+      }));
+
+      const animate = () => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const t = performance.now() / 1000;
+        backgroundPatternsRef.current.forEach((element, i) => {
+          if (!element) return;
+          const { amplitude, speed, direction, phase } = params[i];
+          // パララックス: スクロール量に応じてY方向に遅れて動く
+          const parallax = scrollY * (0.08 + i * 0.03);
+          // 浮遊アニメーション
+          const x = Math.sin(t * speed + phase) * amplitude * direction;
+          const y = Math.cos(t * speed + phase) * amplitude + parallax;
+          element.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        requestAnimationFrame(animate);
+      };
+      animate();
     };
 
     // Continuous scroll indicator animation
