@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
+import Link from "next/link";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -219,9 +220,9 @@ export default function Home() {
             Portfolio
           </div>
           <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <a href="work" className="hover:text-[#ABBAA9] transition-colors duration-300">Work</a>
-            <a href="#about" className="hover:text-[#ABBAA9] transition-colors duration-300">About</a>
-            <a href="#contact" className="hover:text-[#ABBAA9] transition-colors duration-300">Contact</a>
+            <Link href="/work" className="hover:text-[#ABBAA9] transition-colors duration-300" scroll={false}>Work</Link>
+            <Link href="/about" className="hover:text-[#ABBAA9] transition-colors duration-300" scroll={false}>About</Link>
+            <Link href="/contact" className="hover:text-[#ABBAA9] transition-colors duration-300" scroll={false}>Contact</Link>
           </div>
         </div>
       </nav>
