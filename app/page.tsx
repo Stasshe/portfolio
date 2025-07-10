@@ -26,7 +26,7 @@ export default function Home() {
       // Remove effect after animation completes
       setTimeout(() => {
         setClickEffects(prev => prev.filter(effect => effect.id !== id));
-      }, 800);
+      }, 350);
     }
   };
 
@@ -231,8 +231,6 @@ export default function Home() {
           <div className="absolute inset-0 pointer-events-none">
             <div ref={addToRefs} className="absolute top-1/4 right-1/4 w-3 h-3 bg-gradient-to-br from-[#ABBAA9] to-[#ABBAA9]/70 rounded-full shadow-lg"></div>
             <div ref={addToRefs} className="absolute top-1/3 left-1/6 w-2 h-2 bg-gradient-to-br from-[#ABBAA9]/80 to-[#ABBAA9]/50 rounded-full shadow-md"></div>
-            <div ref={addToRefs} className="absolute bottom-1/4 right-1/6 w-4 h-4 bg-gradient-to-br from-[#ABBAA9]/90 to-[#ABBAA9]/60 rounded-full shadow-lg"></div>
-            <div ref={addToRefs} className="absolute top-2/3 left-1/4 w-2.5 h-2.5 bg-gradient-to-br from-[#ABBAA9]/70 to-[#ABBAA9]/40 rounded-full shadow-md"></div>
             <div ref={addToRefs} className="absolute top-1/6 right-2/3 w-1.5 h-1.5 bg-gradient-to-br from-[#ABBAA9]/60 to-[#ABBAA9]/30 rounded-full shadow-sm"></div>
             <div ref={addToRefs} className="absolute bottom-1/3 left-2/3 w-3.5 h-3.5 bg-gradient-to-br from-[#ABBAA9]/85 to-[#ABBAA9]/55 rounded-full shadow-lg"></div>
             
@@ -308,13 +306,15 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Scroll Indicator */}
-          <div ref={scrollIndicatorRef} className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2">
-            <div className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
-              Scroll
+          {/* Scroll Indicator (右寄せ・☟アイコン) */}
+          <div
+            ref={scrollIndicatorRef}
+            className="absolute bottom-28 right-[12rem] flex flex-col items-end space-y-1 z-20"
+            >
+            <div className="flex items-center space-x-2">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">Scroll</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl select-none" style={{lineHeight:1}}>☟</span>
             </div>
-            <div className="w-px h-12 bg-[#ABBAA9] opacity-60"></div>
-            <div className="w-1.5 h-1.5 bg-[#ABBAA9] rounded-full"></div>
           </div>
         </div>
       </main>
