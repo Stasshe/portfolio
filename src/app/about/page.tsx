@@ -121,7 +121,7 @@ export default function About() {
   return (
     <div 
       ref={containerRef} 
-      className="min-h-screen bg-gradient-to-br from-[#F6FAF5] via-[#F0F8EF] to-[#E8F5E8] text-[#2C2319] overflow-x-hidden relative cursor-pointer"
+      className="min-h-screen bg-[#F6FAF5] text-[#2C2319] overflow-x-hidden relative cursor-pointer"
       onClick={handlePageClick}
     >
       {/* Enhanced Background Pattern */}
@@ -207,9 +207,12 @@ export default function About() {
       {/* Content Sections */}
       <div className="px-8 relative z-10">
         <div className="max-w-5xl mx-auto space-y-32">
-          
           {/* Introduction Section */}
-          <section ref={addToSectionsRefs} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <section
+            ref={addToSectionsRefs}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8"
+            style={{ background: '#E3EAF7', boxShadow: '0 4px 32px 0 #ABBAA930' }}
+          >
             <div className="lg:col-span-3 space-y-4">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Introduction
@@ -218,9 +221,9 @@ export default function About() {
             </div>
             <div className="lg:col-span-9 space-y-8">
               <div className="text-3xl md:text-4xl font-light leading-tight">
-                A student passionate about the intersection of 
+                A student passionate about the intersection of
                 <span className="text-[#ABBAA9]"> technology </span>
-                and 
+                and
                 <span className="text-[#ABBAA9]"> creativity</span>.
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
@@ -235,7 +238,11 @@ export default function About() {
           </section>
 
           {/* Skills Section */}
-          <section ref={addToSectionsRefs} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <section
+            ref={addToSectionsRefs}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10"
+            style={{ background: '#ECE6F7', boxShadow: '0 4px 32px 0 #ABBAA930' }}
+          >
             <div className="lg:col-span-3 space-y-4">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Expertise
@@ -285,7 +292,11 @@ export default function About() {
           </section>
 
           {/* Philosophy Section */}
-          <section ref={addToSectionsRefs} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <section
+            ref={addToSectionsRefs}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8"
+            style={{ background: '#F7F3E6', boxShadow: '0 4px 32px 0 #ABBAA930' }}
+          >
             <div className="lg:col-span-3 space-y-4">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Philosophy
@@ -310,7 +321,11 @@ export default function About() {
           </section>
 
           {/* Current Focus Section */}
-          <section ref={addToSectionsRefs} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <section
+            ref={addToSectionsRefs}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10"
+            style={{ background: '#E6F7F3', boxShadow: '0 4px 32px 0 #ABBAA930' }}
+          >
             <div className="lg:col-span-3 space-y-4">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Current Focus
@@ -319,7 +334,7 @@ export default function About() {
             </div>
             <div className="lg:col-span-9 space-y-8">
               <div className="text-2xl md:text-3xl font-light leading-tight">
-                Exploring the future of 
+                Exploring the future of
                 <span className="text-[#ABBAA9]"> interactive experiences</span>
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
@@ -332,7 +347,6 @@ export default function About() {
               </div>
             </div>
           </section>
-
         </div>
       </div>
 
