@@ -7,8 +7,9 @@ import * as THREE from 'three';
 type WaterSurfaceProps = {
   opacity?: number;
   speed?: number;
+  color?: [number, number, number]; // RGB 0-1
 };
-const WaterSurface = ({ opacity = 0.3, speed = 0.5 }: WaterSurfaceProps) => {
+const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: WaterSurfaceProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const { viewport } = useThree();
 
@@ -18,7 +19,8 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5 }: WaterSurfaceProps) => {
         uTime: { value: 0 },
         uResolution: { value: new Vector2(viewport.width, viewport.height) },
         uOpacity: { value: opacity },
-        uSpeed: { value: speed }
+        uSpeed: { value: speed },
+        uColor: { value: new THREE.Color(...color) }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -32,6 +34,7 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5 }: WaterSurfaceProps) => {
         uniform vec2 uResolution;
         uniform float uOpacity;
         uniform float uSpeed;
+        uniform vec3 uColor;
         varying vec2 vUv;
 
         float noise(vec2 p) {
@@ -86,7 +89,7 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5 }: WaterSurfaceProps) => {
           float gradient = 1.0 - smoothstep(0.0, 0.7, dist);
           
           // Final color with transparency
-          vec3 waterColor = vec3(0.7, 0.8, 0.9);
+          vec3 waterColor = uColor;
           float alpha = caustics * gradient * uOpacity;
           
           gl_FragColor = vec4(waterColor, alpha);
@@ -95,12 +98,13 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5 }: WaterSurfaceProps) => {
       transparent: true,
       side: DoubleSide
     });
-  }, [opacity, speed, viewport]);
+  }, [opacity, speed, color, viewport]);
 
   useFrame((state: { clock: { elapsedTime: number } }) => {
     if (meshRef.current) {
       shaderMaterial.uniforms.uTime.value = state.clock.elapsedTime;
       shaderMaterial.uniforms.uResolution.value.set(viewport.width, viewport.height);
+      shaderMaterial.uniforms.uColor.value.set(...color);
     }
   });
 
@@ -168,19 +172,28 @@ const RippleEffect = () => {
 };
 
 // Main component
+type WaterSurfaceBackgroundProps = {
+  opacity?: number;
+  speed?: number;
+  color?: [number, number, number];
+  className?: string;
+  enableRipples?: boolean;
+};
 const WaterSurfaceBackground = ({ 
   opacity = 0.15, 
   speed = 0.3, 
+  color = [0.7, 0.8, 0.9],
   className = "",
   enableRipples = true 
-}) => {
+}: WaterSurfaceBackgroundProps) => {
   return (
-    <div className={`absolute inset-0 ${className}`} style={{ pointerEvents: 'none' }}>
+    <div className={`absolute inset-0 rounded-3xl overflow-hidden ${className}`} style={{ pointerEvents: 'none' }}>
       <Canvas
         camera={{ position: [0, 0, 1], fov: 50 }}
         style={{ width: '100%', height: '100%' }}
+        frameloop="always"
       >
-        <WaterSurface opacity={opacity} speed={speed} />
+        <WaterSurface opacity={opacity} speed={speed} color={color} />
         {enableRipples && <RippleEffect />}
       </Canvas>
     </div>

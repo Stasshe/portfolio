@@ -208,17 +208,19 @@ export default function About() {
       <div className="px-8 relative z-10">
         <div className="max-w-5xl mx-auto space-y-32">
           {/* Introduction Section */}
-          <section
-            ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
-            style={{ background: '#E3EAF7', boxShadow: '0 4px 32px 0 #ABBAA930' }}
-          >
+          <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.08} 
+              opacity={0.18} 
               speed={0.25} 
+              color={[0.8, 0.1, 0.1]} // 濃い赤
               className="rounded-3xl"
               enableRipples={false}
             />
+            <section
+              ref={addToSectionsRefs}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+            >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Introduction
@@ -241,20 +243,23 @@ export default function About() {
                 </p>
               </div>
             </div>
-          </section>
+            </section>
+          </div>
 
           {/* Skills Section */}
-          <section
-            ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
-            style={{ background: '#ECE6F7', boxShadow: '0 4px 32px 0 #ABBAA930' }}
-          >
+          <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.1} 
+              opacity={0.5} 
               speed={0.35} 
+              color={[0.1, 0.2, 0.9]} // 濃い青
               className="rounded-3xl"
-              enableRipples={false}
+              enableRipples={true}
             />
+            <section
+              ref={addToSectionsRefs}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+            >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Expertise
@@ -301,20 +306,23 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </section>
+            </section>
+          </div>
 
           {/* Philosophy Section */}
-          <section
-            ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
-            style={{ background: '#F7F3E6', boxShadow: '0 4px 32px 0 #ABBAA930' }}
-          >
+          <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.06} 
+              opacity={0.15} 
               speed={0.4} 
+              color={[0.8, 0.3, 0.1]} // 濃いオレンジ
               className="rounded-3xl"
               enableRipples={false}
             />
+            <section
+              ref={addToSectionsRefs}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+            >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Philosophy
@@ -336,20 +344,23 @@ export default function About() {
                 </p>
               </div>
             </div>
-          </section>
+            </section>
+          </div>
 
           {/* Current Focus Section */}
-          <section
-            ref={addToSectionsRefs}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
-            style={{ background: '#E6F7F3', boxShadow: '0 4px 32px 0 #ABBAA930' }}
-          >
+          <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.12} 
+              opacity={0.18} 
               speed={0.3} 
+              color={[0.1, 0.7, 0.2]} // 濃い緑
               className="rounded-3xl"
               enableRipples={false}
             />
+            <section
+              ref={addToSectionsRefs}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+            >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
                 Current Focus
@@ -370,7 +381,8 @@ export default function About() {
                 </p>
               </div>
             </div>
-          </section>
+            </section>
+          </div>
         </div>
       </div>
 
