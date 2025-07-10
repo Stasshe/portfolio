@@ -219,7 +219,7 @@ export default function Home() {
             Portfolio
           </div>
           <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <a href="#work" className="hover:text-[#ABBAA9] transition-colors duration-300">Work</a>
+            <a href="work" className="hover:text-[#ABBAA9] transition-colors duration-300">Work</a>
             <a href="#about" className="hover:text-[#ABBAA9] transition-colors duration-300">About</a>
             <a href="#contact" className="hover:text-[#ABBAA9] transition-colors duration-300">Contact</a>
           </div>

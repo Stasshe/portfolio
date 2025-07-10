@@ -21,6 +21,8 @@ export default async function WorkPage() {
       tech: data.tech ?? [],
       size: data.size ?? "1x1",
       color: data.color ?? "from-[#ABBAA9]/20 to-[#ABBAA9]/10",
+      priority: data.priority ?? 0, // Assuming priority is a number
+      date: data.date ?? "",
       content,
     };
   });
