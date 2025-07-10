@@ -1,12 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -16,98 +10,136 @@ export default function Home() {
   const navRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const decorativeElementsRef = useRef<HTMLDivElement[]>([]);
+  const backgroundPatternsRef = useRef<HTMLDivElement[]>([]);
+  const [clickEffects, setClickEffects] = useState<Array<{id: number, x: number, y: number}>>([]);
+
+  // Handle page clicks for geometric animations
+  const handlePageClick = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const id = Date.now() + Math.random();
+      
+      setClickEffects(prev => [...prev, { id, x, y }]);
+      
+      // Remove effect after animation completes
+      setTimeout(() => {
+        setClickEffects(prev => prev.filter(effect => effect.id !== id));
+      }, 800);
+    }
+  };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Initial page load animations
-      const tl = gsap.timeline();
-      
+    // Initial page load animations
+    const animateElements = () => {
       // Navigation fade in
-      tl.from(navRef.current, {
-        y: -30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      });
-
-      // Hero text animations with staggered reveals
-      tl.from(heroTextRef.current?.children || [], {
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        stagger: 0.15
-      }, "-=0.5");
-
-      // Subtitle reveal
-      tl.from(subtitleRef.current, {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      }, "-=0.8");
-
-      // Role reveal
-      tl.from(roleRef.current, {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.out"
-      }, "-=0.6");
-
-      // Decorative elements animation
-      tl.from(decorativeElementsRef.current, {
-        scale: 0,
-        opacity: 0,
-        duration: 0.8,
-        ease: "back.out(1.7)",
-        stagger: 0.1
-      }, "-=0.4");
-
-      // Scroll indicator
-      tl.from(scrollIndicatorRef.current, {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.out"
-      }, "-=0.3");
-
-      // Continuous scroll indicator animation
-      gsap.to(scrollIndicatorRef.current, {
-        y: 10,
-        duration: 1.5,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: -1
-      });
-
-      // Parallax effect for decorative elements
-      decorativeElementsRef.current.forEach((element, index) => {
-        gsap.to(element, {
-          y: -50 * (index + 1),
-          scrollTrigger: {
-            trigger: element,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
+      if (navRef.current) {
+        navRef.current.style.transform = 'translateY(-30px)';
+        navRef.current.style.opacity = '0';
+        setTimeout(() => {
+          if (navRef.current) {
+            navRef.current.style.transition = 'all 0.8s ease-out';
+            navRef.current.style.transform = 'translateY(0)';
+            navRef.current.style.opacity = '1';
           }
-        });
-      });
+        }, 100);
+      }
 
-      // Text color animation on scroll
-      gsap.to(heroTextRef.current, {
-        color: "#ABBAA9",
-        scrollTrigger: {
-          trigger: heroTextRef.current,
-          start: "top center",
-          end: "bottom center",
-          scrub: true
+      // Hero text animations
+      if (heroTextRef.current) {
+        const children = Array.from(heroTextRef.current.children);
+        children.forEach((child, index) => {
+          const element = child as HTMLElement;
+          element.style.transform = 'translateY(100px)';
+          element.style.opacity = '0';
+          setTimeout(() => {
+            element.style.transition = 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            element.style.transform = 'translateY(0)';
+            element.style.opacity = '1';
+          }, 300 + index * 150);
+        });
+      }
+
+      // Subtitle and role animations
+      [subtitleRef, roleRef].forEach((ref, index) => {
+        if (ref.current) {
+          ref.current.style.transform = `translateY(${30 - index * 10}px)`;
+          ref.current.style.opacity = '0';
+          setTimeout(() => {
+            if (ref.current) {
+              ref.current.style.transition = 'all 0.8s ease-out';
+              ref.current.style.transform = 'translateY(0)';
+              ref.current.style.opacity = '1';
+            }
+          }, 800 + index * 200);
         }
       });
 
-    }, containerRef);
+      // Decorative elements animation
+      decorativeElementsRef.current.forEach((element, index) => {
+        if (element) {
+          element.style.transform = 'scale(0)';
+          element.style.opacity = '0';
+          setTimeout(() => {
+            element.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            element.style.transform = 'scale(1)';
+            element.style.opacity = '1';
+          }, 1000 + index * 100);
+        }
+      });
 
-    return () => ctx.revert();
+      // Scroll indicator
+      if (scrollIndicatorRef.current) {
+        scrollIndicatorRef.current.style.transform = 'translateY(20px)';
+        scrollIndicatorRef.current.style.opacity = '0';
+        setTimeout(() => {
+          if (scrollIndicatorRef.current) {
+            scrollIndicatorRef.current.style.transition = 'all 0.6s ease-out';
+            scrollIndicatorRef.current.style.transform = 'translateY(0)';
+            scrollIndicatorRef.current.style.opacity = '1';
+          }
+        }, 1200);
+      }
+    };
+
+    // Floating animation for background patterns
+    const animateBackgroundPatterns = () => {
+      backgroundPatternsRef.current.forEach((element, index) => {
+        if (element) {
+          const delay = index * 500;
+          const duration = 3000 + (index * 200);
+          const amplitude = 15 + (index * 5);
+          
+          const animate = () => {
+            element.style.transition = `transform ${duration}ms ease-in-out`;
+            element.style.transform = `translate(${Math.sin(Date.now() / 1000 + index) * amplitude}px, ${Math.cos(Date.now() / 1000 + index) * amplitude}px)`;
+          };
+          
+          setTimeout(() => {
+            animate();
+            setInterval(animate, duration);
+          }, delay);
+        }
+      });
+    };
+
+    // Continuous scroll indicator animation
+    const animateScrollIndicator = () => {
+      if (scrollIndicatorRef.current) {
+        let direction = 1;
+        setInterval(() => {
+          if (scrollIndicatorRef.current) {
+            scrollIndicatorRef.current.style.transform = `translateY(${direction * 10}px)`;
+            direction *= -1;
+          }
+        }, 1500);
+      }
+    };
+
+    animateElements();
+    setTimeout(animateBackgroundPatterns, 1500);
+    setTimeout(animateScrollIndicator, 2000);
   }, []);
 
   const addToRefs = (el: HTMLDivElement) => {
@@ -116,10 +148,61 @@ export default function Home() {
     }
   };
 
+  const addToBackgroundRefs = (el: HTMLDivElement) => {
+    if (el && !backgroundPatternsRef.current.includes(el)) {
+      backgroundPatternsRef.current.push(el);
+    }
+  };
+
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#F6FAF5] text-[#2C2319] overflow-x-hidden">
+    <div 
+      ref={containerRef} 
+      className="min-h-screen bg-gradient-to-br from-[#F6FAF5] via-[#F0F8EF] to-[#E8F5E8] text-[#2C2319] overflow-x-hidden relative cursor-pointer"
+      onClick={handlePageClick}
+    >
+      {/* Enhanced Background Pattern */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Organic shapes */}
+        <div ref={addToBackgroundRefs} className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-[#ABBAA9]/10 to-[#ABBAA9]/5 rounded-full blur-xl"></div>
+        <div ref={addToBackgroundRefs} className="absolute bottom-1/3 left-1/4 w-48 h-48 bg-gradient-to-tl from-[#ABBAA9]/8 to-[#ABBAA9]/3 rounded-full blur-2xl"></div>
+        <div ref={addToBackgroundRefs} className="absolute top-2/3 right-1/6 w-24 h-24 bg-gradient-to-br from-[#ABBAA9]/12 to-[#ABBAA9]/6 rounded-full blur-lg"></div>
+        <div ref={addToBackgroundRefs} className="absolute top-1/6 left-2/3 w-40 h-40 bg-gradient-to-bl from-[#ABBAA9]/7 to-[#ABBAA9]/4 rounded-full blur-xl"></div>
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="w-full h-full" style={{
+            backgroundImage: `
+              linear-gradient(to right, #ABBAA9 1px, transparent 1px),
+              linear-gradient(to bottom, #ABBAA9 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+      </div>
+
+      {/* Click Effects */}
+      {clickEffects.map((effect) => (
+        <div
+          key={effect.id}
+          className="fixed pointer-events-none z-50"
+          style={{
+            left: effect.x,
+            top: effect.y,
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          {/* Expanding circle */}
+          <div className="absolute inset-0 w-4 h-4 border border-[#ABBAA9]/50 rounded-full animate-ping"></div>
+          {/* Rotating squares */}
+          <div className="absolute inset-0 w-3 h-3 bg-[#ABBAA9]/30 transform rotate-45 animate-pulse"></div>
+          <div className="absolute inset-0 w-2 h-2 bg-[#ABBAA9]/50 transform rotate-12 animate-spin"></div>
+          {/* Expanding diamond */}
+          <div className="absolute inset-0 w-1 h-1 bg-[#ABBAA9]/70 transform rotate-45 animate-bounce"></div>
+        </div>
+      ))}
+
       {/* Navigation */}
-      <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-sm bg-[#F6FAF5]/80">
+      <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[#F6FAF5]/90 border-b border-[#ABBAA9]/10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-lg font-light tracking-wider">
             Portfolio
@@ -133,14 +216,20 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <main className="pt-32 pb-20 px-8 relative">
+      <main className="pt-32 pb-20 px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
-          {/* Decorative Elements */}
+          {/* Natural Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
-            <div ref={addToRefs} className="absolute top-1/4 right-1/4 w-2 h-2 bg-[#ABBAA9] rounded-full opacity-60"></div>
-            <div ref={addToRefs} className="absolute top-1/3 left-1/6 w-1 h-1 bg-[#ABBAA9] rounded-full opacity-40"></div>
-            <div ref={addToRefs} className="absolute bottom-1/4 right-1/6 w-3 h-3 bg-[#ABBAA9] rounded-full opacity-30"></div>
-            <div ref={addToRefs} className="absolute top-2/3 left-1/4 w-1.5 h-1.5 bg-[#ABBAA9] rounded-full opacity-50"></div>
+            <div ref={addToRefs} className="absolute top-1/4 right-1/4 w-3 h-3 bg-gradient-to-br from-[#ABBAA9] to-[#ABBAA9]/70 rounded-full shadow-lg"></div>
+            <div ref={addToRefs} className="absolute top-1/3 left-1/6 w-2 h-2 bg-gradient-to-br from-[#ABBAA9]/80 to-[#ABBAA9]/50 rounded-full shadow-md"></div>
+            <div ref={addToRefs} className="absolute bottom-1/4 right-1/6 w-4 h-4 bg-gradient-to-br from-[#ABBAA9]/90 to-[#ABBAA9]/60 rounded-full shadow-lg"></div>
+            <div ref={addToRefs} className="absolute top-2/3 left-1/4 w-2.5 h-2.5 bg-gradient-to-br from-[#ABBAA9]/70 to-[#ABBAA9]/40 rounded-full shadow-md"></div>
+            <div ref={addToRefs} className="absolute top-1/6 right-2/3 w-1.5 h-1.5 bg-gradient-to-br from-[#ABBAA9]/60 to-[#ABBAA9]/30 rounded-full shadow-sm"></div>
+            <div ref={addToRefs} className="absolute bottom-1/3 left-2/3 w-3.5 h-3.5 bg-gradient-to-br from-[#ABBAA9]/85 to-[#ABBAA9]/55 rounded-full shadow-lg"></div>
+            
+            {/* Organic line elements */}
+            <div ref={addToRefs} className="absolute top-1/2 left-1/8 w-16 h-0.5 bg-gradient-to-r from-[#ABBAA9]/40 to-transparent rounded-full transform rotate-12"></div>
+            <div ref={addToRefs} className="absolute bottom-1/5 right-1/8 w-12 h-0.5 bg-gradient-to-l from-[#ABBAA9]/30 to-transparent rounded-full transform -rotate-6"></div>
           </div>
 
           {/* Main Content */}
@@ -222,7 +311,7 @@ export default function Home() {
       </main>
 
       {/* Secondary Section */}
-      <section className="py-32 px-8 relative">
+      <section className="py-32 px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
@@ -253,7 +342,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-8 border-t border-[#ABBAA9]/20">
+      <footer className="py-16 px-8 border-t border-[#ABBAA9]/20 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="space-y-4">
