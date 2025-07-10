@@ -13,13 +13,17 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
   const meshRef = useRef<THREE.Mesh>(null);
   const { viewport } = useThree();
 
+  // デフォルト値を強調
+  const effectiveOpacity = opacity ?? 0.5;
+  const effectiveSpeed = speed ?? 1.0;
+
   const shaderMaterial = useMemo(() => {
     return new ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
         uResolution: { value: new Vector2(viewport.width, viewport.height) },
-        uOpacity: { value: opacity },
-        uSpeed: { value: speed },
+        uOpacity: { value: effectiveOpacity },
+        uSpeed: { value: effectiveSpeed },
         uColor: { value: new THREE.Color(...color) }
       },
       vertexShader: `
@@ -45,60 +49,45 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
           vec2 i = floor(p);
           vec2 f = fract(p);
           f = f * f * (3.0 - 2.0 * f);
-          
           float a = noise(i);
           float b = noise(i + vec2(1.0, 0.0));
           float c = noise(i + vec2(0.0, 1.0));
           float d = noise(i + vec2(1.0, 1.0));
-          
           return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
         }
 
         float fbm(vec2 p) {
           float value = 0.0;
-          float amplitude = 0.5;
+          float amplitude = 0.7; // 振幅を強調
           float frequency = 1.0;
-          
-          for(int i = 0; i < 4; i++) {
+          for(int i = 0; i < 6; i++) { // ループ回数増加
             value += amplitude * smoothNoise(p * frequency);
             amplitude *= 0.5;
             frequency *= 2.0;
           }
-          
           return value;
         }
 
         void main() {
           vec2 uv = vUv;
-          vec2 st = uv * 8.0;
-          
-          // Create ripple effect
+          vec2 st = uv * 2.0; // 倍率を上げて細かく
           float time = uTime * uSpeed;
-          float ripple1 = fbm(st + time * 0.3);
-          float ripple2 = fbm(st + time * 0.5 + vec2(100.0));
-          float ripple3 = fbm(st + time * 0.7 + vec2(200.0));
-          
-          // Combine ripples
+          float ripple1 = fbm(st + time * 0.6);
+          float ripple2 = fbm(st + time * 1.0 + vec2(100.0));
+          float ripple3 = fbm(st + time * 1.4 + vec2(200.0));
           float ripples = (ripple1 + ripple2 + ripple3) / 3.0;
-          
-          // Create water caustics
-          float caustics = sin(ripples * 10.0 + time) * 0.1 + 0.9;
-          
-          // Distance from center for gradient
+          float caustics = sin(ripples * 18.0 + time) * 0.18 + 0.85;
           float dist = length(uv - 0.5);
           float gradient = 1.0 - smoothstep(0.0, 0.7, dist);
-          
-          // Final color with transparency
           vec3 waterColor = uColor;
           float alpha = caustics * gradient * uOpacity;
-          
           gl_FragColor = vec4(waterColor, alpha);
         }
       `,
       transparent: true,
       side: DoubleSide
     });
-  }, [opacity, speed, color, viewport]);
+  }, [effectiveOpacity, effectiveSpeed, color, viewport]);
 
   useFrame((state: { clock: { elapsedTime: number } }) => {
     if (meshRef.current) {
@@ -110,7 +99,8 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
 
   return (
     <mesh ref={meshRef} material={shaderMaterial}>
-      <planeGeometry args={[2, 2]} />
+      {/* 分割数を増やすことでディテールUP */}
+      <planeGeometry args={[2, 2, 32, 32]} />
     </mesh>
   );
 };
@@ -180,8 +170,8 @@ type WaterSurfaceBackgroundProps = {
   enableRipples?: boolean;
 };
 const WaterSurfaceBackground = ({ 
-  opacity = 0.15, 
-  speed = 0.3, 
+  opacity = 0.5, // 強調
+  speed = 1.0,   // 強調
   color = [0.7, 0.8, 0.9],
   className = "",
   enableRipples = true 
