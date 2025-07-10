@@ -1,12 +1,13 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { useClickEffects } from "../hooks/useClickEffects";
 import Link from "next/link";
 import Footer from "../components/Footer";
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { containerRef, clickEffects, handlePageClick } = useClickEffects();
   const heroTextRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
@@ -14,24 +15,7 @@ export default function Home() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const decorativeElementsRef = useRef<HTMLDivElement[]>([]);
   const backgroundPatternsRef = useRef<HTMLDivElement[]>([]);
-  const [clickEffects, setClickEffects] = useState<Array<{id: number, x: number, y: number}>>([]);
 
-  // Handle page clicks for geometric animations
-  const handlePageClick = (e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const id = Date.now() + Math.random();
-      
-      setClickEffects(prev => [...prev, { id, x, y }]);
-      
-      // Remove effect after animation completes
-      setTimeout(() => {
-        setClickEffects(prev => prev.filter(effect => effect.id !== id));
-      }, 350);
-    }
-  };
 
   useEffect(() => {
     // Initial page load animations
@@ -196,7 +180,7 @@ export default function Home() {
       {clickEffects.map((effect) => (
         <div
           key={effect.id}
-          className="fixed pointer-events-none z-50"
+          className="absolute pointer-events-none z-50"
           style={{
             left: effect.x,
             top: effect.y,

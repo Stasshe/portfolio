@@ -279,3 +279,15 @@ button:focus {
 .animate-bounce {
   animation: bounce 0.8s ease-in-out;
 }
+
+
+/* クリックエフェクト用の推奨スタイル */
+.click-effect-container {
+  position: relative;
+}
+
+.click-effect {
+  position: absolute;
+  pointer-events: none;
+  /* 必要に応じてアニメーションやサイズ、色などを追加 */
+}

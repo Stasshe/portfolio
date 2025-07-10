@@ -154,7 +154,7 @@ export default function ClientProjectGrid({ projects }: Props) {
         {clickEffects.map((effect) => (
             <div
             key={effect.id}
-            className="fixed pointer-events-none z-50"
+            className="absolute pointer-events-none z-50"
             style={{
                 left: effect.x,
                 top: effect.y,
