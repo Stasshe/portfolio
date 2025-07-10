@@ -177,16 +177,16 @@ export default function Home() {
         <div ref={addToBackgroundRefs} className="absolute top-2/3 right-1/6 w-24 h-24 bg-gradient-to-br from-[#ABBAA9]/12 to-[#ABBAA9]/6 rounded-full blur-lg"></div>
         <div ref={addToBackgroundRefs} className="absolute top-1/6 left-2/3 w-40 h-40 bg-gradient-to-bl from-[#ABBAA9]/7 to-[#ABBAA9]/4 rounded-full blur-xl"></div>
         
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="w-full h-full" style={{
-            backgroundImage: `
-              linear-gradient(to right, #ABBAA9 1px, transparent 1px),
-              linear-gradient(to bottom, #ABBAA9 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px'
-          }}></div>
-        </div>
+      {/* Subtle grid pattern (opacity調整済み) */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="w-full h-full" style={{
+          backgroundImage: `
+            linear-gradient(to right, #ABBAA9 1px, transparent 1px),
+            linear-gradient(to bottom, #ABBAA9 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }}></div>
+      </div>
       </div>
 
       {/* Click Effects */}
