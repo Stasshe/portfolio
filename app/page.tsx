@@ -242,7 +242,7 @@ export default function Home() {
           {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-[70vh]">
             {/* Left Column - Main Text */}
-            <div className="lg:col-span-8 flex flex-col justify-center space-y-12">
+            <div className="lg:col-span-8 flex flex-col justify-center space-y-8">
               <div ref={heroTextRef} className="space-y-4">
                 <div className="text-6xl md:text-8xl lg:text-9xl font-extralight leading-none tracking-tight">
                   Creative
@@ -266,8 +266,8 @@ export default function Home() {
             </div>
 
             {/* Right Column - Role & Details */}
-            <div className="lg:col-span-4 flex flex-col justify-center space-y-16">
-              <div ref={roleRef} className="space-y-6">
+            <div className="lg:col-span-4 flex flex-col justify-center space-y-10">
+              <div ref={roleRef} className="space-y-4">
                 <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
                   Currently
                 </div>
@@ -280,7 +280,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
                   Focus Areas
                 </div>
