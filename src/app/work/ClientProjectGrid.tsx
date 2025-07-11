@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useTheme } from "../../contexts/ThemeContext";
+
 type Project = {
   id: string;
   title: string;
@@ -18,6 +20,7 @@ type Props = {
 };
 
 export default function ClientProjectGrid({ projects }: Props) {
+  const { theme } = useTheme();
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [clickEffects, setClickEffects] = useState<Array<{id: number, x: number, y: number}>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -126,180 +129,160 @@ export default function ClientProjectGrid({ projects }: Props) {
     };
 
     return (
-        <div 
-        ref={containerRef}
-        className="min-h-screen bg-gradient-to-br from-[#F6FAF5] via-[#F0F8EF] to-[#E8F5E8] text-[#2C2319] overflow-x-hidden relative cursor-pointer"
-        onClick={handlePageClick}
-        >
-        {/* Enhanced Background Pattern */}
-        <div className="fixed inset-0 pointer-events-none z-0">
-            <div ref={addToBackgroundRefs} className="absolute top-1/6 right-1/4 w-28 h-28 bg-gradient-to-br from-[#ABBAA9]/8 to-[#ABBAA9]/4 rounded-full blur-xl"></div>
-            <div ref={addToBackgroundRefs} className="absolute bottom-1/4 left-1/6 w-36 h-36 bg-gradient-to-tl from-[#ABBAA9]/6 to-[#ABBAA9]/3 rounded-full blur-2xl"></div>
-            <div ref={addToBackgroundRefs} className="absolute top-1/2 right-1/6 w-20 h-20 bg-gradient-to-br from-[#ABBAA9]/10 to-[#ABBAA9]/5 rounded-full blur-lg"></div>
-            <div ref={addToBackgroundRefs} className="absolute top-1/3 left-2/3 w-32 h-32 bg-gradient-to-bl from-[#ABBAA9]/7 to-[#ABBAA9]/3 rounded-full blur-xl"></div>
-            
-            {/* Subtle grid pattern */}
-            <div className="absolute inset-0 opacity-15">
-            <div className="w-full h-full" style={{
-                backgroundImage: `
-                linear-gradient(to right, #ABBAA9 1px, transparent 1px),
-                linear-gradient(to bottom, #ABBAA9 1px, transparent 1px)
-                `,
-                backgroundSize: '40px 40px'
-            }}></div>
-            </div>
+        <div
+      ref={containerRef}
+      className={`min-h-screen bg-gradient-to-br from-[${theme.mainBg}] via-[${theme.accentSoft}] to-[${theme.accentSoft}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
+      onClick={handlePageClick}
+    >
+      {/* Enhanced Background Pattern */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div ref={addToBackgroundRefs} className={`absolute top-1/6 right-1/4 w-28 h-28 bg-gradient-to-br from-[${theme.accent}]/8 to-[${theme.accent}]/4 rounded-full blur-xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute bottom-1/4 left-1/6 w-36 h-36 bg-gradient-to-tl from-[${theme.accent}]/6 to-[${theme.accent}]/3 rounded-full blur-2xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-1/2 right-1/6 w-20 h-20 bg-gradient-to-br from-[${theme.accent}]/10 to-[${theme.accent}]/5 rounded-full blur-lg`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-1/3 left-2/3 w-32 h-32 bg-gradient-to-bl from-[${theme.accent}]/7 to-[${theme.accent}]/3 rounded-full blur-xl`}></div>
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-15">
+          <div className="w-full h-full" style={{
+            backgroundImage: `linear-gradient(to right, ${theme.accentGrid} 1px, transparent 1px),linear-gradient(to bottom, ${theme.accentGrid} 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}></div>
         </div>
+      </div>
 
-        {/* Click Effects */}
-        {clickEffects.map((effect) => (
-            <div
-            key={effect.id}
-            className="absolute pointer-events-none z-50"
-            style={{
-                left: effect.x,
-                top: effect.y,
-                transform: 'translate(-50%, -50%)'
-            }}
-            >
-            <div className="absolute inset-0 w-4 h-4 border border-[#ABBAA9]/50 rounded-full animate-ping"></div>
-            <div className="absolute inset-0 w-3 h-3 bg-[#ABBAA9]/30 transform rotate-45 animate-pulse"></div>
-            <div className="absolute inset-0 w-2 h-2 bg-[#ABBAA9]/50 transform rotate-12 animate-spin"></div>
-            <div className="absolute inset-0 w-1 h-1 bg-[#ABBAA9]/70 transform rotate-45 animate-bounce"></div>
-            </div>
-        ))}
+      {/* Click Effects */}
+      {clickEffects.map((effect) => (
+        <div
+          key={effect.id}
+          className="absolute pointer-events-none z-50"
+          style={{
+            left: effect.x,
+            top: effect.y,
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          <div className="absolute inset-0 w-4 h-4 border border-[#ABBAA9]/50 rounded-full animate-ping"></div>
+          <div className="absolute inset-0 w-3 h-3 bg-[#ABBAA9]/30 transform rotate-45 animate-pulse"></div>
+          <div className="absolute inset-0 w-2 h-2 bg-[#ABBAA9]/50 transform rotate-12 animate-spin"></div>
+          <div className="absolute inset-0 w-1 h-1 bg-[#ABBAA9]/70 transform rotate-45 animate-bounce"></div>
+        </div>
+      ))}
 
-        {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[#F6FAF5]/90 border-b border-[#ABBAA9]/10">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="text-lg font-light tracking-wider">
-                <a href="/" className="hover:text-[#ABBAA9] transition-colors duration-300">Portfolio</a>
-            </div>
-            <div className="flex space-x-8 text-sm font-light tracking-wide">
-                <Link href="/work" className="text-[#ABBAA9] font-medium">Work</Link>
-                <Link href="/about" className="hover:text-[#ABBAA9] transition-colors duration-300">About</Link>
-                <Link href="/contact" className="hover:text-[#ABBAA9] transition-colors duration-300">Contact</Link>
-            </div>
-            </div>
-        </nav>
+      {/* Navigation */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[${theme.mainBg}]/90 border-b border-[${theme.accent}]/10`}>
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="text-lg font-light tracking-wider">
+            <a href="/" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>Portfolio</a>
+          </div>
+          <div className="flex space-x-8 text-sm font-light tracking-wide">
+            <Link href="/work" className={`text-[${theme.accent}] font-medium`}>Work</Link>
+            <Link href="/about" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>About</Link>
+            <Link href="/contact" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>Contact</Link>
+          </div>
+        </div>
+      </nav>
 
-        {/* Main Content */}
-        <main className="pt-32 pb-20 px-8 relative z-10">
-            <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div ref={headerRef} className="mb-16">
-                <div className="space-y-4">
-                <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
-                    Selected Work
-                </div>
-                <div className="text-5xl md:text-6xl lg:text-7xl font-extralight leading-tight tracking-tight">
-                    Projects & 
-                    <br />
-                    <span className="text-[#ABBAA9]">Case Studies</span>
-                </div>
-                <div className="max-w-2xl">
-                    <p className="text-lg md:text-xl font-light leading-relaxed text-[#2C2319]/80">
-                    A collection of projects spanning web development, mobile applications, 
-                    and interactive experiences. Each project represents a unique challenge 
-                    and creative solution.
-                    </p>
-                </div>
-                </div>
+      {/* Main Content */}
+      <main className="pt-32 pb-20 px-8 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div ref={headerRef} className="mb-16">
+            <div className="space-y-4">
+              <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
+                Selected Work
+              </div>
+              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight leading-tight tracking-tight">
+                Projects & 
+                <br />
+                <span className="text-[#ABBAA9]">Case Studies</span>
+              </div>
+              <div className="max-w-2xl">
+                <p className="text-lg md:text-xl font-light leading-relaxed text-[#2C2319]/80">
+                  A collection of projects spanning web development, mobile applications, 
+                  and interactive experiences. Each project represents a unique challenge 
+                  and creative solution.
+                </p>
+              </div>
             </div>
+          </div>
 
-            {/* Projects Grid */}
-            <div 
-                ref={gridRef}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 auto-rows-[200px]"
-            >
-                {projects.map((project) => (
-                <div
-                    key={project.id}
-                    ref={addToProjectRefs}
-                    className={`
-                    ${getGridClasses(project.size)}
-                    group relative overflow-hidden rounded-2xl bg-gradient-to-br ${project.color}
-                    border border-[#ABBAA9]/20 hover:border-[#ABBAA9]/40
-                    transition-all duration-500 ease-out
-                    hover:shadow-xl hover:shadow-[#ABBAA9]/10
-                    cursor-pointer
-                    `}
-                    onMouseEnter={() => setHoveredProject(project.id)}
-                    onMouseLeave={() => setHoveredProject(null)}
+          {/* Projects Grid */}
+          <div
+            ref={gridRef}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 auto-rows-[200px]"
+          >
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                ref={addToProjectRefs}
+                className={`
+                  ${getGridClasses(project.size)}
+                  group relative overflow-hidden rounded-2xl bg-gradient-to-br ${project.color}
+                  border border-[${theme.accent}]/20 hover:border-[${theme.accent}]/40
+                  transition-all duration-500 ease-out
+                  hover:shadow-xl hover:shadow-[${theme.accent}]/10
+                  cursor-pointer
+                `}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+              >
+                {/* Content */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className={`text-xs uppercase tracking-[0.2em] text-[${theme.accent}] font-medium`}>
+                      {project.category}
+                    </div>
+                    <div className="text-lg font-light leading-tight">
+                      {project.title}
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-1">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className={`px-2 py-1 text-xs bg-[${theme.accent}]/20 text-[${theme.mainText}] rounded-full font-light`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className={`flex items-center space-x-2 text-sm text-[${theme.accent}] font-light`}>
+                      <span>View Project</span>
+                      <div className={`w-1 h-1 bg-[${theme.accent}] rounded-full transition-all duration-300 ease-out ${hoveredProject === project.id ? 'transform translate-x-1' : ''}`}></div>
+                    </div>
+                  </div>
+                </div>
+                {/* Hover Effect Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-br from-[${theme.accent}]/10 to-[${theme.accent}]/5 transition-all duration-300 ease-out ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`}></div>
+                {/* Decorative Elements */}
+                <div className={`absolute top-4 right-4 w-2 h-2 bg-[${theme.accent}]/30 rounded-full`}></div>
+                <div className={`absolute bottom-4 left-4 w-8 h-0.5 bg-[${theme.accent}]/40 rounded-full transition-all duration-300 ease-out ${hoveredProject === project.id ? 'w-12' : 'w-8'}`}></div>
+              </div>
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="mt-24 text-center">
+            <div className="space-y-6">
+              <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
+                Interested in working together?
+              </div>
+              <div className="text-2xl md:text-3xl font-light">
+                Let's create something amazing
+              </div>
+              <div className="pt-4">
+                <a 
+                  href="#contact"
+                  className="inline-flex items-center space-x-3 px-8 py-4 bg-[#ABBAA9]/10 hover:bg-[#ABBAA9]/20 border border-[#ABBAA9]/30 hover:border-[#ABBAA9]/50 rounded-full transition-all duration-300 text-sm font-light tracking-wide"
                 >
-                    {/* Content */}
-                    <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                    <div className="space-y-2">
-                        <div className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
-                        {project.category}
-                        </div>
-                        <div className="text-lg font-light leading-tight">
-                        {project.title}
-                        </div>
-                    </div>
-                    
-                    <div className="space-y-3">
-                        <div className="flex flex-wrap gap-1">
-                        {project.tech.map((tech) => (
-                            <span
-                            key={tech}
-                            className="px-2 py-1 text-xs bg-[#ABBAA9]/20 text-[#2C2319] rounded-full font-light"
-                            >
-                            {tech}
-                            </span>
-                        ))}
-                        </div>
-                        
-                        <div className="flex items-center space-x-2 text-sm text-[#ABBAA9] font-light">
-                        <span>View Project</span>
-                        <div className={`
-                            w-1 h-1 bg-[#ABBAA9] rounded-full
-                            transition-all duration-300 ease-out
-                            ${hoveredProject === project.id ? 'transform translate-x-1' : ''}
-                        `}></div>
-                        </div>
-                    </div>
-                    </div>
-
-                    {/* Hover Effect Overlay */}
-                    <div className={`
-                    absolute inset-0 bg-gradient-to-br from-[#ABBAA9]/10 to-[#ABBAA9]/5
-                    transition-all duration-300 ease-out
-                    ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}
-                    `}></div>
-
-                    {/* Decorative Elements */}
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-[#ABBAA9]/30 rounded-full"></div>
-                    <div className={`
-                    absolute bottom-4 left-4 w-8 h-0.5 bg-[#ABBAA9]/40 rounded-full
-                    transition-all duration-300 ease-out
-                    ${hoveredProject === project.id ? 'w-12' : 'w-8'}
-                    `}></div>
-                </div>
-                ))}
+                  <span>Get in Touch</span>
+                  <div className="w-1 h-1 bg-[#ABBAA9] rounded-full"></div>
+                </a>
+              </div>
             </div>
-
-            {/* Call to Action */}
-            <div className="mt-24 text-center">
-                <div className="space-y-6">
-                <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
-                    Interested in working together?
-                </div>
-                <div className="text-2xl md:text-3xl font-light">
-                    Let's create something amazing
-                </div>
-                <div className="pt-4">
-                    <a 
-                    href="#contact"
-                    className="inline-flex items-center space-x-3 px-8 py-4 bg-[#ABBAA9]/10 hover:bg-[#ABBAA9]/20 border border-[#ABBAA9]/30 hover:border-[#ABBAA9]/50 rounded-full transition-all duration-300 text-sm font-light tracking-wide"
-                    >
-                    <span>Get in Touch</span>
-                    <div className="w-1 h-1 bg-[#ABBAA9] rounded-full"></div>
-                    </a>
-                </div>
-                </div>
-            </div>
-            </div>
-        </main>
-        </div>    
+          </div>
+        </div>
+      </main>
+    </div>    
     );
 }

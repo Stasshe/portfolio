@@ -1,12 +1,13 @@
-
 "use client";
 
 import { useEffect, useRef } from 'react';
 import { useClickEffects } from "../hooks/useClickEffects";
 import Link from "next/link";
 import Footer from "../components/Footer";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function Home() {
+  const { theme } = useTheme();
   const { containerRef, clickEffects, handlePageClick } = useClickEffects();
   const heroTextRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
@@ -151,26 +152,23 @@ export default function Home() {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className="min-h-screen bg-gradient-to-br from-[#F6FAF5] via-[#F0F8EF] to-[#E8F5E8] text-[#2C2319] overflow-x-hidden relative cursor-pointer"
+    <div
+      ref={containerRef}
+      className={`min-h-screen bg-gradient-to-br from-[${theme.mainBg}] via-[${theme.accentSoft}] to-[${theme.accentSoft}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
       onClick={handlePageClick}
     >
       {/* Enhanced Background Pattern */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Organic shapes */}
-        <div ref={addToBackgroundRefs} className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-[#ABBAA9]/10 to-[#ABBAA9]/5 rounded-full blur-xl"></div>
-        <div ref={addToBackgroundRefs} className="absolute bottom-1/3 left-1/4 w-48 h-48 bg-gradient-to-tl from-[#ABBAA9]/8 to-[#ABBAA9]/3 rounded-full blur-2xl"></div>
-        <div ref={addToBackgroundRefs} className="absolute top-2/3 right-1/6 w-24 h-24 bg-gradient-to-br from-[#ABBAA9]/12 to-[#ABBAA9]/6 rounded-full blur-lg"></div>
-        <div ref={addToBackgroundRefs} className="absolute top-1/6 left-2/3 w-40 h-40 bg-gradient-to-bl from-[#ABBAA9]/7 to-[#ABBAA9]/4 rounded-full blur-xl"></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-[${theme.accent}]/10 to-[${theme.accent}]/5 rounded-full blur-xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute bottom-1/3 left-1/4 w-48 h-48 bg-gradient-to-tl from-[${theme.accent}]/8 to-[${theme.accent}]/3 rounded-full blur-2xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-2/3 right-1/6 w-24 h-24 bg-gradient-to-br from-[${theme.accent}]/12 to-[${theme.accent}]/6 rounded-full blur-lg`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-1/6 left-2/3 w-40 h-40 bg-gradient-to-bl from-[${theme.accent}]/7 to-[${theme.accent}]/4 rounded-full blur-xl`}></div>
         
-      {/* Subtle grid pattern (opacity調整済み) */}
+      {/* Subtle grid pattern */}
       <div className="absolute inset-0 opacity-20">
         <div className="w-full h-full" style={{
-          backgroundImage: `
-            linear-gradient(to right, #ABBAA9 1px, transparent 1px),
-            linear-gradient(to bottom, #ABBAA9 1px, transparent 1px)
-          `,
+          backgroundImage: `linear-gradient(to right, ${theme.accentGrid} 1px, transparent 1px),linear-gradient(to bottom, ${theme.accentGrid} 1px, transparent 1px)`,
           backgroundSize: '40px 40px'
         }}></div>
       </div>
@@ -198,15 +196,15 @@ export default function Home() {
       ))}
 
       {/* Navigation */}
-      <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[#F6FAF5]/90 border-b border-[#ABBAA9]/10">
+      <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[${theme.mainBg}]/90 border-b border-[${theme.accent}]/10`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-lg font-light tracking-wider">
             Portfolio
           </div>
           <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <Link href="/work" className="hover:text-[#ABBAA9] transition-colors duration-300" scroll={false}>Work</Link>
-            <Link href="/about" className="hover:text-[#ABBAA9] transition-colors duration-300" scroll={false}>About</Link>
-            <Link href="/contact" className="hover:text-[#ABBAA9] transition-colors duration-300" scroll={false}>Contact</Link>
+            <Link href="/work" className={`hover:text-[${theme.accent}] transition-colors duration-300`} scroll={false}>Work</Link>
+            <Link href="/about" className={`hover:text-[${theme.accent}] transition-colors duration-300`} scroll={false}>About</Link>
+            <Link href="/contact" className={`hover:text-[${theme.accent}] transition-colors duration-300`} scroll={false}>Contact</Link>
           </div>
         </div>
       </nav>
@@ -243,11 +241,11 @@ export default function Home() {
               </div>
 
               <div ref={subtitleRef} className="max-w-xl">
-                <p className="text-xl md:text-2xl font-light leading-relaxed text-[#2C2319]/80">
+                <p className={`text-xl md:text-2xl font-light leading-relaxed text-[${theme.mainText}]/80`}>
                   Crafting digital experiences through the intersection of 
-                  <span className="text-[#ABBAA9] font-normal"> front-end excellence</span>, 
-                  <span className="text-[#ABBAA9] font-normal"> back-end innovation</span>, and 
-                  <span className="text-[#ABBAA9] font-normal"> Swift-powered gaming</span>.
+                  <span className={`text-[${theme.accent}] font-normal`}> front-end excellence</span>, 
+                  <span className={`text-[${theme.accent}] font-normal`}> back-end innovation</span>, and 
+                  <span className={`text-[${theme.accent}] font-normal`}> Swift-powered gaming</span>.
                 </p>
               </div>
             </div>

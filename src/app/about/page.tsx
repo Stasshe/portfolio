@@ -5,8 +5,10 @@ import { useClickEffects } from "../../hooks/useClickEffects";
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import WaterSurfaceBackground from '../../components/waterSurface';
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function About() {
+  const { theme } = useTheme();
   const { containerRef, clickEffects, handlePageClick } = useClickEffects();
   const heroTextRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement[]>([]);
@@ -119,25 +121,21 @@ export default function About() {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className="min-h-screen bg-[#F6FAF5] text-[#2C2319] overflow-x-hidden relative cursor-pointer"
+    <div
+      ref={containerRef}
+      className={`min-h-screen bg-[${theme.mainBg}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
       onClick={handlePageClick}
     >
       {/* Enhanced Background Pattern */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div ref={addToBackgroundRefs} className="absolute top-1/5 right-1/4 w-28 h-28 bg-gradient-to-br from-[#ABBAA9]/8 to-[#ABBAA9]/3 rounded-full blur-xl"></div>
-        <div ref={addToBackgroundRefs} className="absolute bottom-1/4 left-1/5 w-44 h-44 bg-gradient-to-tl from-[#ABBAA9]/6 to-[#ABBAA9]/2 rounded-full blur-2xl"></div>
-        <div ref={addToBackgroundRefs} className="absolute top-3/5 right-1/8 w-20 h-20 bg-gradient-to-br from-[#ABBAA9]/10 to-[#ABBAA9]/4 rounded-full blur-lg"></div>
-        <div ref={addToBackgroundRefs} className="absolute top-1/8 left-3/5 w-36 h-36 bg-gradient-to-bl from-[#ABBAA9]/5 to-[#ABBAA9]/2 rounded-full blur-xl"></div>
-        
+        <div ref={addToBackgroundRefs} className={`absolute top-1/5 right-1/4 w-28 h-28 bg-gradient-to-br from-[${theme.accent}]/8 to-[${theme.accent}]/3 rounded-full blur-xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute bottom-1/4 left-1/5 w-44 h-44 bg-gradient-to-tl from-[${theme.accent}]/6 to-[${theme.accent}]/2 rounded-full blur-2xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-3/5 right-1/8 w-20 h-20 bg-gradient-to-br from-[${theme.accent}]/10 to-[${theme.accent}]/4 rounded-full blur-lg`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute top-1/8 left-3/5 w-36 h-36 bg-gradient-to-bl from-[${theme.accent}]/5 to-[${theme.accent}]/2 rounded-full blur-xl`}></div>
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-15">
           <div className="w-full h-full" style={{
-            backgroundImage: `
-              linear-gradient(to right, #ABBAA9 1px, transparent 1px),
-              linear-gradient(to bottom, #ABBAA9 1px, transparent 1px)
-            `,
+            backgroundImage: `linear-gradient(to right, ${theme.accentGrid} 1px, transparent 1px),linear-gradient(to bottom, ${theme.accentGrid} 1px, transparent 1px)`,
             backgroundSize: '50px 50px'
           }}></div>
         </div>
@@ -162,15 +160,15 @@ export default function About() {
       ))}
 
       {/* Navigation */}
-      <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[#F6FAF5]/90 border-b border-[#ABBAA9]/10">
+      <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[${theme.mainBg}]/90 border-b border-[${theme.accent}]/10`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="text-lg font-light tracking-wider hover:text-[#ABBAA9] transition-colors duration-300">
+          <Link href="/" className={`text-lg font-light tracking-wider hover:text-[${theme.accent}] transition-colors duration-300`}>
             Portfolio
           </Link>
           <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <Link href="/work" className="hover:text-[#ABBAA9] transition-colors duration-300">Work</Link>
-            <span className="text-[#ABBAA9]">About</span>
-            <Link href="/contact" className="hover:text-[#ABBAA9] transition-colors duration-300">Contact</Link>
+            <Link href="/work" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>Work</Link>
+            <span className={`text-[${theme.accent}]`}>About</span>
+            <Link href="/contact" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>Contact</Link>
           </div>
         </div>
       </nav>
