@@ -131,7 +131,14 @@ export default function ClientProjectGrid({ projects }: Props) {
     return (
         <div
       ref={containerRef}
-      className={`min-h-screen bg-gradient-to-br from-[${theme.mainBg}] via-[${theme.accentSoft}] to-[${theme.accentSoft}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
+      style={{
+        minHeight: '100vh',
+        background: `linear-gradient(to bottom right, ${theme.mainBg}, ${theme.accentSoft}, ${theme.accentSoft})`,
+        color: theme.mainText,
+        position: 'relative',
+        overflowX: 'hidden',
+        cursor: 'pointer',
+      }}
       onClick={handlePageClick}
     >
       {/* Enhanced Background Pattern */}
@@ -168,15 +175,25 @@ export default function ClientProjectGrid({ projects }: Props) {
       ))}
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[${theme.mainBg}]/90 border-b border-[${theme.accent}]/10`}>
+      <nav style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        padding: '2rem',
+        backdropFilter: 'blur(8px)',
+        background: `${theme.mainBg}E6`,
+        borderBottom: `1px solid ${theme.accent}1A`,
+      }}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-lg font-light tracking-wider">
-            <a href="/" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>Portfolio</a>
+            <a href="/" style={{ color: theme.accent }}>Portfolio</a>
           </div>
           <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <Link href="/work" className={`text-[${theme.accent}] font-medium`}>Work</Link>
-            <Link href="/about" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>About</Link>
-            <Link href="/contact" className={`hover:text-[${theme.accent}] transition-colors duration-300`}>Contact</Link>
+            <Link href="/work" style={{ color: theme.accent, fontWeight: 500 }}>Work</Link>
+            <Link href="/about" style={{ color: theme.accent }}>About</Link>
+            <Link href="/contact" style={{ color: theme.accent }}>Contact</Link>
           </div>
         </div>
       </nav>
@@ -228,10 +245,10 @@ export default function ClientProjectGrid({ projects }: Props) {
                 {/* Content */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-between">
                   <div className="space-y-2">
-                    <div className={`text-xs uppercase tracking-[0.2em] text-[${theme.accent}] font-medium`}>
+                    <div style={{ color: theme.accent, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.75rem' }}>
                       {project.category}
                     </div>
-                    <div className="text-lg font-light leading-tight">
+                    <div style={{ fontSize: '1.125rem', fontWeight: 300, lineHeight: '1.25' }}>
                       {project.title}
                     </div>
                   </div>
@@ -240,23 +257,29 @@ export default function ClientProjectGrid({ projects }: Props) {
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className={`px-2 py-1 text-xs bg-[${theme.accent}]/20 text-[${theme.mainText}] rounded-full font-light`}
+                          style={{ backgroundColor: theme.accent + '99', color: theme.mainText, borderRadius: '9999px', fontWeight: 300, fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
-                    <div className={`flex items-center space-x-2 text-sm text-[${theme.accent}] font-light`}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: theme.accent, fontWeight: 300, fontSize: '0.875rem' }}>
                       <span>View Project</span>
-                      <div className={`w-1 h-1 bg-[${theme.accent}] rounded-full transition-all duration-300 ease-out ${hoveredProject === project.id ? 'transform translate-x-1' : ''}`}></div>
+                      <div style={{ width: '0.25rem', height: '0.25rem', backgroundColor: theme.accent, borderRadius: '9999px', transform: hoveredProject === project.id ? 'translateX(0.25rem)' : undefined, transition: 'all 0.3s' }}></div>
                     </div>
                   </div>
                 </div>
                 {/* Hover Effect Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br from-[${theme.accent}]/10 to-[${theme.accent}]/5 transition-all duration-300 ease-out ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`}></div>
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: `linear-gradient(to bottom right, ${theme.accent}1A, ${theme.accent}0D)`,
+                  opacity: hoveredProject === project.id ? 1 : 0,
+                  transition: 'all 0.3s',
+                }}></div>
                 {/* Decorative Elements */}
-                <div className={`absolute top-4 right-4 w-2 h-2 bg-[${theme.accent}]/30 rounded-full`}></div>
-                <div className={`absolute bottom-4 left-4 w-8 h-0.5 bg-[${theme.accent}]/40 rounded-full transition-all duration-300 ease-out ${hoveredProject === project.id ? 'w-12' : 'w-8'}`}></div>
+                <div style={{ position: 'absolute', top: '1rem', right: '1rem', width: '0.5rem', height: '0.5rem', backgroundColor: theme.accent + '4D', borderRadius: '9999px' }}></div>
+                <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', width: hoveredProject === project.id ? '3rem' : '2rem', height: '0.125rem', backgroundColor: theme.accent + '66', borderRadius: '9999px', transition: 'all 0.3s' }}></div>
               </div>
             ))}
           </div>

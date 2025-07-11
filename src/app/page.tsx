@@ -154,7 +154,14 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen bg-gradient-to-br from-[${theme.gradientFrom}] via-[${theme.gradientVia}] to-[${theme.gradientTo}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
+      style={{
+        minHeight: '100vh',
+        background: `linear-gradient(to bottom right, ${theme.gradientFrom}, ${theme.gradientVia}, ${theme.gradientTo})`,
+        color: theme.mainText,
+        position: 'relative',
+        overflowX: 'hidden',
+        cursor: 'pointer',
+      }}
       onClick={handlePageClick}
     >
       {/* Enhanced Background Pattern */}
@@ -241,11 +248,11 @@ export default function Home() {
               </div>
 
               <div ref={subtitleRef} className="max-w-xl">
-                <p className={`text-xl md:text-2xl font-light leading-relaxed text-[${theme.mainText}]/80`}>
+                <p style={{ color: theme.mainText, opacity: 0.8 }} className="text-xl md:text-2xl font-light leading-relaxed">
                   Crafting digital experiences through the intersection of 
-                  <span className={`text-[${theme.accent}] font-normal`}> front-end excellence</span>, 
-                  <span className={`text-[${theme.accent}] font-normal`}> back-end innovation</span>, and 
-                  <span className={`text-[${theme.accent}] font-normal`}> Swift-powered gaming</span>.
+                  <span style={{ color: theme.accent, fontWeight: 400 }}> front-end excellence</span>, 
+                  <span style={{ color: theme.accent, fontWeight: 400 }}> back-end innovation</span>, and 
+                  <span style={{ color: theme.accent, fontWeight: 400 }}> Swift-powered gaming</span>.
                 </p>
               </div>
             </div>
