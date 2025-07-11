@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import { ThemeProvider } from '../contexts/ThemeContext';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -58,7 +59,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={`${inter.className} antialiased`}>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         <Script src="//cdn.jsdelivr.net/npm/eruda" strategy="beforeInteractive" />
         <Script id="eruda-init" strategy="afterInteractive">
           {`eruda.init();`}
