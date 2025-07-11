@@ -216,21 +216,21 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #F59E4230', borderColor: theme.accentOrange, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
+              <div style={{ color: theme.accentOrange }} className="text-sm uppercase tracking-[0.3em] font-medium">
                 Introduction
               </div>
-              <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
+              <div style={{ backgroundColor: theme.accentOrange, opacity: 0.3 }} className="w-16 h-0.5"></div>
             </div>
             <div className="lg:col-span-9 space-y-8 relative z-10">
-              <div className="text-3xl md:text-4xl font-light leading-tight">
+              <div style={{ color: theme.accentOrange }} className="text-3xl md:text-4xl font-light leading-tight">
                 A student passionate about the intersection of
-                <span className="text-[#ABBAA9]"> technology </span>
+                <span style={{ color: theme.accentOrange }}> technology </span>
                 and
-                <span className="text-[#ABBAA9]"> creativity</span>.
+                <span style={{ color: theme.accentOrange }}> creativity</span>.
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
                 <p>
@@ -255,19 +255,19 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #3B82F630', borderColor: theme.accentBlue, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div className={`text-sm uppercase tracking-[0.3em] text-[${theme.accentBlue}] font-medium`}>
+              <div style={{ color: theme.accentBlue }} className="text-sm uppercase tracking-[0.3em] font-medium">
                 Expertise
               </div>
-              <div className={`w-16 h-0.5 bg-[${theme.accentBlue}]/30`}></div>
+              <div style={{ backgroundColor: theme.accentBlue, opacity: 0.3 }} className="w-16 h-0.5"></div>
             </div>
             <div className="lg:col-span-9 space-y-12 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-6">
-                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Frontend Development</div>
+                  <div style={{ color: theme.accentBlue }} className="text-xl font-light">Frontend Development</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Modern JavaScript & TypeScript</div>
                     <div>React & Next.js ecosystems</div>
@@ -276,7 +276,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Backend Systems</div>
+                  <div style={{ color: theme.accentBlue }} className="text-xl font-light">Backend Systems</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Server architecture design</div>
                     <div>Database optimization</div>
@@ -285,7 +285,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Game Development</div>
+                  <div style={{ color: theme.accentBlue }} className="text-xl font-light">Game Development</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Swift & iOS development</div>
                     <div>Game mechanics design</div>
@@ -294,7 +294,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Design Philosophy</div>
+                  <div style={{ color: theme.accentBlue }} className="text-xl font-light">Design Philosophy</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Spatial design thinking</div>
                     <div>Minimalist aesthetics</div>
@@ -318,20 +318,20 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #8B5CF630', borderColor: theme.accentPurple, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
+              <div style={{ color: theme.accentPurple }} className="text-sm uppercase tracking-[0.3em] font-medium">
                 Philosophy
               </div>
-              <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
+              <div style={{ backgroundColor: theme.accentPurple, opacity: 0.3 }} className="w-16 h-0.5"></div>
             </div>
             <div className="lg:col-span-9 space-y-8 relative z-10">
-              <div className="text-2xl md:text-3xl font-light leading-tight">
+              <div style={{ color: theme.accentPurple }} className="text-2xl md:text-3xl font-light leading-tight">
                 "Excellence is not a destination,
                 <br />
-                <span className="text-[#ABBAA9]">but a continuous journey of refinement."</span>
+                <span style={{ color: theme.accentPurple }}>but a continuous journey of refinement."</span>
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
                 <p>
@@ -356,19 +356,19 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border border-[#ABBAA9]/10 relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
+              style={{ boxShadow: '0 4px 32px 0 #22C55E30', borderColor: theme.accentGreen, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
+              <div style={{ color: theme.accentGreen }} className="text-sm uppercase tracking-[0.3em] font-medium">
                 Current Focus
               </div>
-              <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
+              <div style={{ backgroundColor: theme.accentGreen, opacity: 0.3 }} className="w-16 h-0.5"></div>
             </div>
             <div className="lg:col-span-9 space-y-8 relative z-10">
-              <div className="text-2xl md:text-3xl font-light leading-tight">
+              <div style={{ color: theme.accentGreen }} className="text-2xl md:text-3xl font-light leading-tight">
                 Exploring the future of
-                <span className="text-[#ABBAA9]"> interactive experiences</span>
+                <span style={{ color: theme.accentGreen }}> interactive experiences</span>
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
                 <p>

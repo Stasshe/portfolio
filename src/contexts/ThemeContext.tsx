@@ -11,6 +11,9 @@ export type ThemeColors = {
   accentGrid: string;
   accentBorder: string;
   accentBlue: string;
+  accentPurple: string; // 追加
+  accentOrange: string; // 追加
+  accentGreen: string; // 追加
   gradientFrom: string; // 追加
   gradientVia: string; // 追加
   gradientTo: string; // 追加
@@ -25,6 +28,9 @@ const defaultTheme: ThemeColors = {
   accentGrid: "#ABBAA9",
   accentBorder: "#ABBAA930",
   accentBlue: "#3B82F6",
+  accentPurple: "#8B5CF6", // 紫
+  accentOrange: "#F59E42", // オレンジ
+  accentGreen: "#22C55E", // 緑
   gradientFrom: "#F6FAF5", // 緑系グラデーション
   gradientVia: "#F0F8EF",
   gradientTo: "#E8F5E8",
