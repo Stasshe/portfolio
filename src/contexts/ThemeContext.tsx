@@ -10,6 +10,7 @@ export type ThemeColors = {
   accentSoft: string;
   accentGrid: string;
   accentBorder: string;
+  accentBlue: string; // 追加
 };
 
 // デフォルト値（#で始まるカラーコードを全てThemeContextで管理）
@@ -20,6 +21,7 @@ const defaultTheme: ThemeColors = {
   accentSoft: "#E8F5E8",
   accentGrid: "#ABBAA9",
   accentBorder: "#ABBAA930",
+  accentBlue: "#3B82F6", // 明るい青
 };
 
 const ThemeContext = createContext<{

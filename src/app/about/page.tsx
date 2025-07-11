@@ -259,15 +259,15 @@ export default function About() {
               style={{ boxShadow: '0 4px 32px 0 #ABBAA930' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div className="text-sm uppercase tracking-[0.3em] text-[#ABBAA9] font-medium">
+              <div className={`text-sm uppercase tracking-[0.3em] text-[${theme.accentBlue}] font-medium`}>
                 Expertise
               </div>
-              <div className="w-16 h-0.5 bg-[#ABBAA9]/30"></div>
+              <div className={`w-16 h-0.5 bg-[${theme.accentBlue}]/30`}></div>
             </div>
             <div className="lg:col-span-9 space-y-12 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-6">
-                  <div className="text-xl font-light text-[#ABBAA9]">Frontend Development</div>
+                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Frontend Development</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Modern JavaScript & TypeScript</div>
                     <div>React & Next.js ecosystems</div>
@@ -276,7 +276,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  <div className="text-xl font-light text-[#ABBAA9]">Backend Systems</div>
+                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Backend Systems</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Server architecture design</div>
                     <div>Database optimization</div>
@@ -285,7 +285,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  <div className="text-xl font-light text-[#ABBAA9]">Game Development</div>
+                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Game Development</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Swift & iOS development</div>
                     <div>Game mechanics design</div>
@@ -294,7 +294,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  <div className="text-xl font-light text-[#ABBAA9]">Design Philosophy</div>
+                  <div className={`text-xl font-light text-[${theme.accentBlue}]`}>Design Philosophy</div>
                   <div className="space-y-3 text-sm font-light leading-relaxed">
                     <div>Spatial design thinking</div>
                     <div>Minimalist aesthetics</div>
