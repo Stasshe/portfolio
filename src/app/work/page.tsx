@@ -1,4 +1,5 @@
 import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import ClientProjectGrid from "./ClientProjectGrid";
 import fs from "fs";
 import path from "path";
@@ -29,6 +30,7 @@ export default async function WorkPage() {
 
   return (
     <div>
+      <Header active="work" />
       <ClientProjectGrid projects={projects} />
       <Footer />
     </div>

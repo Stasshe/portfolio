@@ -5,6 +5,7 @@ import { useClickEffects } from "../hooks/useClickEffects";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import { useTheme } from "../contexts/ThemeContext";
+import Header from "../components/Header";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -203,19 +204,8 @@ export default function Home() {
       ))}
 
       {/* Navigation */}
-      <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 p-8 backdrop-blur-md bg-[${theme.mainBg}]/90 border-b border-[${theme.accent}]/10`}>
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-lg font-light tracking-wider">
-            Portfolio
-          </div>
-          <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <Link href="/work" className={`hover:text-[${theme.accent}] transition-colors duration-300`} scroll={false}>Work</Link>
-            <Link href="/about" className={`hover:text-[${theme.accent}] transition-colors duration-300`} scroll={false}>About</Link>
-            <Link href="/contact" className={`hover:text-[${theme.accent}] transition-colors duration-300`} scroll={false}>Contact</Link>
-          </div>
-        </div>
-      </nav>
-
+      <Header active="home" />
+      
       {/* Hero Section */}
       <main className="pt-32 pb-20 px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
