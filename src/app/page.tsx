@@ -346,7 +346,7 @@ export default function Home() {
       <Header active="home" />
       
       {/* Hero Section */}
-      <main className={`${isMobile ? 'pt-16 pb-12 px-4' : 'pt-32 pb-20 px-4 sm:px-8'} relative z-10`}>
+      <main className={`${isMobile ? 'pt-28 pb-12 px-4' : 'pt-32 pb-20 px-4 sm:px-8'} relative z-10`}>
         <div className={`${isMobile ? 'w-full' : 'max-w-7xl mx-auto'}`}>
           {/* Enhanced Mobile Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
@@ -385,7 +385,6 @@ export default function Home() {
                 <div 
                   className={`${isMobile ? 'text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
                   style={{
-                    transform: isMobile ? `translateY(${scrollY * 0.1}px)` : 'none',
                     transition: 'transform 0.1s ease-out'
                   }}
                 >
@@ -394,7 +393,6 @@ export default function Home() {
                 <div 
                   className={`${isMobile ? 'text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
                   style={{
-                    transform: isMobile ? `translateY(${scrollY * 0.15}px)` : 'none',
                     transition: 'transform 0.1s ease-out'
                   }}
                 >
@@ -403,7 +401,6 @@ export default function Home() {
                 <div 
                   className={`${isMobile ? 'text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
                   style={{
-                    transform: isMobile ? `translateY(${scrollY * 0.2}px)` : 'none',
                     transition: 'transform 0.1s ease-out'
                   }}
                 >
