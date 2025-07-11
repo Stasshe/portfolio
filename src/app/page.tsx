@@ -263,7 +263,7 @@ export default function Home() {
     setTimeout(animateBackgroundPatterns, 1500);
     setTimeout(animateMobileFloatingElements, 1800);
     setTimeout(animateScrollIndicator, 2000);
-  }, [isMobile, isScrolling]);
+  }, [isMobile]);
 
   const addToRefs = (el: HTMLDivElement) => {
     if (el && !decorativeElementsRef.current.includes(el)) {
