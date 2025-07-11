@@ -99,8 +99,8 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
 
   return (
     <mesh ref={meshRef} material={shaderMaterial}>
-      {/* 分割数を増やすことでディテールUP */}
-      <planeGeometry args={[2, 2, 32, 32]} />
+      {/* viewportサイズに合わせて全体をカバー */}
+      <planeGeometry args={[viewport.width, viewport.height, 32, 32]} />
     </mesh>
   );
 };
@@ -156,7 +156,7 @@ const RippleEffect = () => {
 
   return (
     <mesh ref={meshRef} material={shaderMaterial}>
-      <planeGeometry args={[2, 2]} />
+      <planeGeometry args={[viewport.width, viewport.height]} />
     </mesh>
   );
 };

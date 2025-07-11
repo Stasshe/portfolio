@@ -350,8 +350,8 @@ export default function About() {
           {/* Current Focus Section */}
           <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.5} 
-              speed={0.35}
+              opacity={0.5}
+              speed={0.45}
               color={[0.1, 0.7, 0.2]} // 濃い緑
               className="rounded-3xl"
               enableRipples={true}
