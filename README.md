@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StassheポートフォリオWebサイト
 
-## Getting Started
+このリポジトリは、Next.jsで構築されたポートフォリオWebサイトです。主に自身の制作物やプロフィール、クライアントワークなどを紹介するためのものです。
 
-First, run the development server:
+## セットアップ方法
+
+1. 依存パッケージのインストール
+
+```bash
+npm install
+```
+
+2. 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. ブラウザで `http://localhost:3000` を開いて動作確認
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ディレクトリ構成
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app/`：ページやレイアウト、グローバルCSS
+- `src/components/`：ヘッダー、フッター、UIコンポーネント
+- `src/contexts/`：テーマ管理などのReact Context
+- `src/hooks/`：カスタムフック
+- `src/lib/`：ユーティリティ関数
+- `DB/work/`：各種プロジェクトの仕様書
 
-## Learn More
+## 技術的仕様
 
-To learn more about Next.js, take a look at the following resources:
+- フレームワーク：Next.js（App Router構成）
+- 言語：TypeScript
+- UI：Tailwind CSS
+- アイコン・UIパーツ：独自コンポーネント（`src/components/ui/`）
+- 状態管理：React Context（例：ThemeContext）
+- フォント：Geist（next/fontによる最適化）
+- Lint：ESLint
+- その他：PostCSS, Vercelデプロイ対応
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 主なページ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/`：トップページ
+- `/about`：プロフィール
+- `/work`：制作実績一覧（クライアントワーク含む）
 
-## Deploy on Vercel
+## デプロイ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vercelで簡単にデプロイ可能です。詳細は[Next.js公式ドキュメント](https://nextjs.org/docs/app/building-your-application/deploying)を参照してください。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ライセンス
+
+MIT
