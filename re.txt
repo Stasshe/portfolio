@@ -1,0 +1,28 @@
+TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+    at process.set [as exitCode] (node:internal/bootstrap/node:122:9)
+    at process.exit (node:internal/process/per_thread:189:24)
+    at process.cleanup (/workspaces/portfolio/node_modules/next/dist/server/lib/start-server.js:208:29)
+    at process.emit (node:events:530:35) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+    at process.set [as exitCode] (node:internal/bootstrap/node:122:9)
+    at process.exit (node:internal/process/per_thread:189:24)
+    at process.cleanup (/workspaces/portfolio/node_modules/next/dist/server/lib/start-server.js:208:29)
+    at process.emit (node:events:530:35) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+ [31m[1mX[22m[39m uncaughtException: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+    at process.set [as exitCode] (node:internal/bootstrap/node:122:9)
+    at process.exit (node:internal/process/per_thread:189:24)
+    at process.cleanup (/workspaces/portfolio/node_modules/next/dist/server/lib/start-server.js:208:29)
+    at process.emit (node:events:530:35) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+ [31m[1mX[22m[39m uncaughtException: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+    at process.set [as exitCode] (node:internal/bootstrap/node:122:9)
+    at process.exit (node:internal/process/per_thread:189:24)
+    at process.cleanup (/workspaces/portfolio/node_modules/next/dist/server/lib/start-server.js:208:29)
+    at process.emit (node:events:530:35) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}

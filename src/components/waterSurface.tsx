@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, DoubleSide, AdditiveBlending } from 'three';
 import * as THREE from 'three';
@@ -176,16 +176,53 @@ const WaterSurfaceBackground = ({
   className = "",
   enableRipples = true 
 }: WaterSurfaceBackgroundProps) => {
+  // Intersection Observerで可視判定
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(true); // 初期値true（SSR対策）
+
+  // 開発モード判定
+  const isDev = typeof process !== 'undefined' && process.env.NODE_ENV === 'development';
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: '100px' }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // 開発モードならCanvas描画自体を省略
+  if (isDev) {
+    return (
+      <div
+        ref={containerRef}
+        className={`absolute inset-0 rounded-3xl overflow-hidden ${className}`}
+        style={{ pointerEvents: 'none' }}
+      />
+    );
+  }
+
   return (
-    <div className={`absolute inset-0 rounded-3xl overflow-hidden ${className}`} style={{ pointerEvents: 'none' }}>
-      <Canvas
-        camera={{ position: [0, 0, 1], fov: 50 }}
-        style={{ width: '100%', height: '100%' }}
-        frameloop="always"
-      >
-        <WaterSurface opacity={opacity} speed={speed} color={color} />
-        {enableRipples && <RippleEffect />}
-      </Canvas>
+    <div
+      ref={containerRef}
+      className={`absolute inset-0 rounded-3xl overflow-hidden ${className}`}
+      style={{ pointerEvents: 'none' }}
+    >
+      {isVisible && (
+        <Canvas
+          camera={{ position: [0, 0, 1], fov: 50 }}
+          style={{ width: '100%', height: '100%' }}
+          frameloop="always"
+        >
+          <WaterSurface opacity={opacity} speed={isDev ? 0 : speed} color={color} />
+          {/* RippleEffectは開発モードでは無効化 */}
+          {(!isDev && enableRipples) && <RippleEffect />}
+        </Canvas>
+      )}
     </div>
   );
 };
