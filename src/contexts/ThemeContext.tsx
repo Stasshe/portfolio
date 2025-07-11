@@ -10,7 +10,10 @@ export type ThemeColors = {
   accentSoft: string;
   accentGrid: string;
   accentBorder: string;
-  accentBlue: string; // 追加
+  accentBlue: string;
+  gradientFrom: string; // 追加
+  gradientVia: string; // 追加
+  gradientTo: string; // 追加
 };
 
 // デフォルト値（#で始まるカラーコードを全てThemeContextで管理）
@@ -21,7 +24,10 @@ const defaultTheme: ThemeColors = {
   accentSoft: "#E8F5E8",
   accentGrid: "#ABBAA9",
   accentBorder: "#ABBAA930",
-  accentBlue: "#3B82F6", // 明るい青
+  accentBlue: "#3B82F6",
+  gradientFrom: "#F6FAF5", // 緑系グラデーション
+  gradientVia: "#F0F8EF",
+  gradientTo: "#E8F5E8",
 };
 
 const ThemeContext = createContext<{

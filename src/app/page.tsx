@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen bg-gradient-to-br from-[${theme.mainBg}] via-[${theme.accentSoft}] to-[${theme.accentSoft}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
+      className={`min-h-screen bg-gradient-to-br from-[${theme.gradientFrom}] via-[${theme.gradientVia}] to-[${theme.gradientTo}] text-[${theme.mainText}] overflow-x-hidden relative cursor-pointer`}
       onClick={handlePageClick}
     >
       {/* Enhanced Background Pattern */}
