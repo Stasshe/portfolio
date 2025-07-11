@@ -5,7 +5,7 @@ tech:
   - Figma
   - React
   - TypeScript
-size: 1x1
+size: 3x1
 color: from-[#ABBAA9]/25 to-[#ABBAA9]/12
 date: 2025-07-05
 priority: 1
