@@ -176,8 +176,8 @@ export default function ClientProjectGrid({ projects }: Props) {
             </div>
             <div className="flex space-x-8 text-sm font-light tracking-wide">
                 <Link href="/work" className="text-[#ABBAA9] font-medium">Work</Link>
-                <Link href="#about" className="hover:text-[#ABBAA9] transition-colors duration-300">About</Link>
-                <Link href="#contact" className="hover:text-[#ABBAA9] transition-colors duration-300">Contact</Link>
+                <Link href="/about" className="hover:text-[#ABBAA9] transition-colors duration-300">About</Link>
+                <Link href="/contact" className="hover:text-[#ABBAA9] transition-colors duration-300">Contact</Link>
             </div>
             </div>
         </nav>

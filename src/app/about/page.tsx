@@ -210,11 +210,11 @@ export default function About() {
           {/* Introduction Section */}
           <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.18} 
-              speed={0.25} 
+              opacity={0.5} 
+              speed={0.35}
               color={[0.8, 0.1, 0.1]} // 濃い赤
               className="rounded-3xl"
-              enableRipples={false}
+              enableRipples={true}
             />
             <section
               ref={addToSectionsRefs}
@@ -250,7 +250,7 @@ export default function About() {
           <div className="relative">
             <WaterSurfaceBackground 
               opacity={0.5} 
-              speed={0.35} 
+              speed={0.35}
               color={[0.1, 0.2, 0.9]} // 濃い青
               className="rounded-3xl"
               enableRipples={true}
@@ -312,11 +312,11 @@ export default function About() {
           {/* Philosophy Section */}
           <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.15} 
-              speed={0.4} 
+              opacity={0.5} 
+              speed={0.35}
               color={[0.8, 0.3, 0.1]} // 濃いオレンジ
               className="rounded-3xl"
-              enableRipples={false}
+              enableRipples={true}
             />
             <section
               ref={addToSectionsRefs}
@@ -350,11 +350,11 @@ export default function About() {
           {/* Current Focus Section */}
           <div className="relative">
             <WaterSurfaceBackground 
-              opacity={0.18} 
-              speed={0.3} 
+              opacity={0.5} 
+              speed={0.35}
               color={[0.1, 0.7, 0.2]} // 濃い緑
               className="rounded-3xl"
-              enableRipples={false}
+              enableRipples={true}
             />
             <section
               ref={addToSectionsRefs}
