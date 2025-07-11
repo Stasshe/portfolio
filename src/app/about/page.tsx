@@ -216,8 +216,8 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #F59E4230', borderColor: theme.accentOrange, borderWidth: '1px', borderStyle: 'solid' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
+              // style={{ boxShadow: '0 4px 32px 0 #F59E4230', borderColor: theme.accentOrange, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div style={{ color: theme.accentOrange }} className="text-sm uppercase tracking-[0.3em] font-medium">
@@ -255,8 +255,8 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #3B82F630', borderColor: theme.accentBlue, borderWidth: '1px', borderStyle: 'solid' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
+              // style={{ boxShadow: '0 4px 32px 0 #3B82F630', borderColor: theme.accentBlue, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div style={{ color: theme.accentBlue }} className="text-sm uppercase tracking-[0.3em] font-medium">
@@ -318,8 +318,8 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #8B5CF630', borderColor: theme.accentPurple, borderWidth: '1px', borderStyle: 'solid' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
+              // style={{ boxShadow: '0 4px 32px 0 #8B5CF630', borderColor: theme.accentPurple, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div style={{ color: theme.accentPurple }} className="text-sm uppercase tracking-[0.3em] font-medium">
@@ -356,8 +356,8 @@ export default function About() {
             />
             <section
               ref={addToSectionsRefs}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 border relative overflow-hidden"
-              style={{ boxShadow: '0 4px 32px 0 #22C55E30', borderColor: theme.accentGreen, borderWidth: '1px', borderStyle: 'solid' }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 rounded-3xl shadow-sm backdrop-blur-md p-8 relative overflow-hidden"
+              // style={{ boxShadow: '0 4px 32px 0 #22C55E30', borderColor: theme.accentGreen, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
               <div style={{ color: theme.accentGreen }} className="text-sm uppercase tracking-[0.3em] font-medium">
