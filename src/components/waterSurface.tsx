@@ -13,6 +13,12 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
   const meshRef = useRef<THREE.Mesh>(null);
   const { viewport } = useThree();
 
+  // ランダムなグラデーション中心座標（0.2〜0.8の範囲で）
+  const gradientCenter = useMemo(() => [
+    0.2 + Math.random() * 0.6,
+    0.2 + Math.random() * 0.6
+  ], []);
+
   // デフォルト値を強調
   const effectiveOpacity = opacity ?? 0.5;
   const effectiveSpeed = speed ?? 1.0;
@@ -24,7 +30,8 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
         uResolution: { value: new Vector2(viewport.width, viewport.height) },
         uOpacity: { value: effectiveOpacity },
         uSpeed: { value: effectiveSpeed },
-        uColor: { value: new THREE.Color(...color) }
+        uColor: { value: new THREE.Color(...color) },
+        uCenter: { value: new Vector2(...gradientCenter) }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -39,6 +46,7 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
         uniform float uOpacity;
         uniform float uSpeed;
         uniform vec3 uColor;
+        uniform vec2 uCenter;
         varying vec2 vUv;
 
         float noise(vec2 p) {
@@ -77,7 +85,7 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
           float ripple3 = fbm(st + time * 1.4 + vec2(200.0));
           float ripples = (ripple1 + ripple2 + ripple3) / 3.0;
           float caustics = sin(ripples * 18.0 + time) * 0.18 + 0.85;
-          float dist = length(uv - 0.5);
+          float dist = length(uv - uCenter); // 中心座標をランダム化
           float gradient = 1.0 - smoothstep(0.0, 0.7, dist);
           vec3 waterColor = uColor;
           float alpha = caustics * gradient * uOpacity;
@@ -87,13 +95,14 @@ const WaterSurface = ({ opacity = 0.3, speed = 0.5, color = [0.7, 0.8, 0.9] }: W
       transparent: true,
       side: DoubleSide
     });
-  }, [effectiveOpacity, effectiveSpeed, color, viewport]);
+  }, [effectiveOpacity, effectiveSpeed, color, viewport, gradientCenter]);
 
   useFrame((state: { clock: { elapsedTime: number } }) => {
     if (meshRef.current) {
       shaderMaterial.uniforms.uTime.value = state.clock.elapsedTime;
       shaderMaterial.uniforms.uResolution.value.set(viewport.width, viewport.height);
       shaderMaterial.uniforms.uColor.value.set(...color);
+      // uCenterは初期値のみ
     }
   });
 
