@@ -174,30 +174,7 @@ export default function ClientProjectGrid({ projects }: Props) {
         </div>
       ))}
 
-      {/* Navigation */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        padding: '2rem',
-        backdropFilter: 'blur(8px)',
-        background: `${theme.mainBg}E6`,
-        borderBottom: `1px solid ${theme.accent}1A`,
-      }}>
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-lg font-light tracking-wider">
-            <a href="/" style={{ color: theme.accent }}>Portfolio</a>
-          </div>
-          <div className="flex space-x-8 text-sm font-light tracking-wide">
-            <Link href="/work" style={{ color: theme.accent, fontWeight: 500 }}>Work</Link>
-            <Link href="/about" style={{ color: theme.accent }}>About</Link>
-            <Link href="/contact" style={{ color: theme.accent }}>Contact</Link>
-          </div>
-        </div>
-      </nav>
-
+      
       {/* Main Content */}
       <main className="pt-32 pb-20 px-8 relative z-10">
         <div className="max-w-7xl mx-auto">

@@ -205,7 +205,7 @@ const WaterSurfaceBackground = ({
   }, []);
 
   // 開発モードならCanvas描画自体を省略
-  if (isDev) {
+  if (false) {
     return (
       <div
         ref={containerRef}

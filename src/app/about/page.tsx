@@ -210,17 +210,17 @@ export default function About() {
               // style={{ boxShadow: '0 4px 32px 0 #F59E4230', borderColor: theme.accentOrange, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div style={{ color: theme.accentOrange }} className="text-sm uppercase tracking-[0.3em] font-medium">
+              <div style={{ color: theme.accentPurple }} className="text-sm uppercase tracking-[0.3em] font-medium">
                 Introduction
               </div>
-              <div style={{ backgroundColor: theme.accentOrange, opacity: 0.3 }} className="w-16 h-0.5"></div>
+              <div style={{ backgroundColor: theme.accentPurple, opacity: 0.3 }} className="w-16 h-0.5"></div>
             </div>
             <div className="lg:col-span-9 space-y-8 relative z-10">
-              <div style={{ color: theme.accentOrange }} className="text-3xl md:text-4xl font-light leading-tight">
+              <div style={{ color: theme.accentPurple }} className="text-3xl md:text-4xl font-light leading-tight">
                 A student passionate about the intersection of
-                <span style={{ color: theme.accentOrange }}> technology </span>
+                <span style={{ color: theme.accentPurple }}> technology </span>
                 and
-                <span style={{ color: theme.accentOrange }}> creativity</span>.
+                <span style={{ color: theme.accentPurple }}> creativity</span>.
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
                 <p>
@@ -350,15 +350,15 @@ export default function About() {
               // style={{ boxShadow: '0 4px 32px 0 #22C55E30', borderColor: theme.accentGreen, borderWidth: '1px', borderStyle: 'solid' }}
             >
             <div className="lg:col-span-3 space-y-4 relative z-10">
-              <div style={{ color: theme.accentGreen }} className="text-sm uppercase tracking-[0.3em] font-medium">
+              <div style={{ color: theme.accentBrown }} className="text-sm uppercase tracking-[0.3em] font-medium">
                 Current Focus
               </div>
-              <div style={{ backgroundColor: theme.accentGreen, opacity: 0.3 }} className="w-16 h-0.5"></div>
+              <div style={{ backgroundColor: theme.accentBrown, opacity: 0.3 }} className="w-16 h-0.5"></div>
             </div>
             <div className="lg:col-span-9 space-y-8 relative z-10">
-              <div style={{ color: theme.accentGreen }} className="text-2xl md:text-3xl font-light leading-tight">
+              <div style={{ color: theme.accentBrown }} className="text-2xl md:text-3xl font-light leading-tight">
                 Exploring the future of
-                <span style={{ color: theme.accentGreen }}> interactive experiences</span>
+                <span style={{ color: theme.accentBrown }}> interactive experiences</span>
               </div>
               <div className="text-lg font-light leading-relaxed text-[#2C2319]/80 space-y-6">
                 <p>
