@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useClickEffects } from "../hooks/useClickEffects";
-import Link from "next/link";
 import Footer from "../components/Footer";
 import { useTheme } from "../contexts/ThemeContext";
 import Header from "../components/Header";
@@ -24,7 +23,6 @@ export default function Home() {
   const backgroundPatternsRef = useRef<HTMLDivElement[]>([]);
   const mobileFloatingElementsRef = useRef<HTMLDivElement[]>([]);
 
-  // モバイル検出とスクロール監視
   const timeoutId = useRef<NodeJS.Timeout | number | null>(null);
   useEffect(() => {
     const checkMobile = () => {
@@ -49,7 +47,6 @@ export default function Home() {
     };
   }, []);
 
-  // モバイルタッチインタラクション
   const handleTouchStart = (e: React.TouchEvent) => {
     if (isMobile) {
       setTouchStartY(e.touches[0].clientY);
@@ -60,7 +57,6 @@ export default function Home() {
     if (isMobile && touchStartY) {
       const touchY = e.touches[0].clientY;
       const diff = touchStartY - touchY;
-      // パララックス効果をタッチに応じて調整
       if (heroTextRef.current) {
         const intensity = diff * 0.1;
         heroTextRef.current.style.transform = `translateY(${intensity}px)`;
@@ -69,9 +65,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Initial page load animations
     const animateElements = () => {
-      // Navigation fade in
       if (navRef.current) {
         navRef.current.style.transform = 'translateY(-30px)';
         navRef.current.style.opacity = '0';
@@ -84,22 +78,19 @@ export default function Home() {
         }, 100);
       }
 
-      // Hero text animations with staggered mobile-specific effects
       if (heroTextRef.current) {
         const children = Array.from(heroTextRef.current.children);
         children.forEach((child, index) => {
           const element = child as HTMLElement;
           if (isMobile) {
-            // モバイル専用: 横からスライドイン + 回転
-            element.style.transform = `translateX(${index % 2 === 0 ? '-100%' : '100%'}) rotate(${index * 5}deg)`;
+            element.style.transform = `translateY(40px)`;
             element.style.opacity = '0';
             setTimeout(() => {
-              element.style.transition = 'all 1.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-              element.style.transform = 'translateX(0) rotate(0deg)';
+              element.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+              element.style.transform = 'translateY(0)';
               element.style.opacity = '1';
-            }, 400 + index * 200);
+            }, 300 + index * 150);
           } else {
-            // デスクトップ版
             element.style.transform = 'translateY(100px)';
             element.style.opacity = '0';
             setTimeout(() => {
@@ -111,19 +102,18 @@ export default function Home() {
         });
       }
 
-      // Subtitle and role animations
       [subtitleRef, roleRef].forEach((ref, index) => {
         if (ref.current) {
           if (isMobile) {
-            ref.current.style.transform = `translateY(50px) scale(0.9)`;
+            ref.current.style.transform = `translateY(30px)`;
             ref.current.style.opacity = '0';
             setTimeout(() => {
               if (ref.current) {
-                ref.current.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                ref.current.style.transform = 'translateY(0) scale(1)';
+                ref.current.style.transition = 'all 0.8s ease-out';
+                ref.current.style.transform = 'translateY(0)';
                 ref.current.style.opacity = '1';
               }
-            }, 1000 + index * 300);
+            }, 800 + index * 200);
           } else {
             ref.current.style.transform = `translateY(${30 - index * 10}px)`;
             ref.current.style.opacity = '0';
@@ -138,7 +128,6 @@ export default function Home() {
         }
       });
 
-      // Decorative elements animation
       decorativeElementsRef.current.forEach((element, index) => {
         if (element) {
           element.style.transform = 'scale(0) rotate(180deg)';
@@ -151,22 +140,20 @@ export default function Home() {
         }
       });
 
-      // Mobile floating elements
       if (isMobile) {
         mobileFloatingElementsRef.current.forEach((element, index) => {
           if (element) {
-            element.style.transform = 'translateY(100px) scale(0)';
+            element.style.transform = 'translateY(50px) scale(0)';
             element.style.opacity = '0';
             setTimeout(() => {
-              element.style.transition = 'all 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              element.style.transition = 'all 0.8s ease-out';
               element.style.transform = 'translateY(0) scale(1)';
               element.style.opacity = '1';
-            }, 1400 + index * 200);
+            }, 1200 + index * 150);
           }
         });
       }
 
-      // Scroll indicator
       if (scrollIndicatorRef.current) {
         scrollIndicatorRef.current.style.transform = 'translateY(20px)';
         scrollIndicatorRef.current.style.opacity = '0';
@@ -176,18 +163,17 @@ export default function Home() {
             scrollIndicatorRef.current.style.transform = 'translateY(0)';
             scrollIndicatorRef.current.style.opacity = '1';
           }
-        }, 1600);
+        }, 1400);
       }
     };
 
-    // Enhanced floating & parallax animation
     const animateBackgroundPatterns = () => {
       const params = backgroundPatternsRef.current.map((_, i) => ({
-        amplitude: isMobile ? 12 + i * 4 : 15 + i * 8,
-        speed: isMobile ? 0.2 + i * 0.1 : 0.15 + i * 0.07,
+        amplitude: isMobile ? 8 + i * 2 : 15 + i * 8,
+        speed: isMobile ? 0.3 + i * 0.1 : 0.15 + i * 0.07,
         direction: i % 2 === 0 ? 1 : -1,
         phase: Math.random() * Math.PI * 2,
-        rotationSpeed: isMobile ? 0.5 + i * 0.3 : 0.3 + i * 0.2,
+        rotationSpeed: isMobile ? 0.3 + i * 0.2 : 0.3 + i * 0.2,
       }));
 
       const animate = () => {
@@ -198,15 +184,10 @@ export default function Home() {
           if (!element) return;
           const { amplitude, speed, direction, phase, rotationSpeed } = params[i];
           
-          // パララックス効果
-          const parallax = currentScrollY * (0.1 + i * 0.05);
-          
-          // 浮遊アニメーション
+          const parallax = currentScrollY * (0.05 + i * 0.02);
           const x = Math.sin(t * speed + phase) * amplitude * direction;
           const y = Math.cos(t * speed + phase) * amplitude - parallax;
-          
-          // 回転アニメーション（モバイル専用）
-          const rotation = isMobile ? t * rotationSpeed * 10 : 0;
+          const rotation = isMobile ? t * rotationSpeed * 5 : 0;
           
           element.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
         });
@@ -216,13 +197,12 @@ export default function Home() {
       animate();
     };
 
-    // Mobile-specific floating elements animation
     const animateMobileFloatingElements = () => {
       if (!isMobile) return;
       
       const params = mobileFloatingElementsRef.current.map((_, i) => ({
-        amplitude: 8 + i * 3,
-        speed: 0.8 + i * 0.4,
+        amplitude: 5 + i * 2,
+        speed: 0.6 + i * 0.3,
         direction: i % 2 === 0 ? 1 : -1,
         phase: Math.random() * Math.PI * 2,
       }));
@@ -235,7 +215,7 @@ export default function Home() {
           
           const x = Math.sin(t * speed + phase) * amplitude * direction;
           const y = Math.cos(t * speed * 0.7 + phase) * amplitude * 0.5;
-          const scale = 1 + Math.sin(t * speed + phase) * 0.1;
+          const scale = 1 + Math.sin(t * speed + phase) * 0.05;
           
           element.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
         });
@@ -245,17 +225,16 @@ export default function Home() {
       animate();
     };
 
-    // Continuous scroll indicator animation
     const animateScrollIndicator = () => {
       if (scrollIndicatorRef.current) {
         let direction = 1;
         setInterval(() => {
           if (scrollIndicatorRef.current && !isScrolling) {
-            const bounce = isMobile ? 8 : 10;
+            const bounce = isMobile ? 5 : 10;
             scrollIndicatorRef.current.style.transform = `translateY(${direction * bounce}px)`;
             direction *= -1;
           }
-        }, isMobile ? 1200 : 1500);
+        }, isMobile ? 1500 : 1500);
       }
     };
 
@@ -298,33 +277,28 @@ export default function Home() {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
     >
-      {/* Enhanced Background Pattern */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Organic shapes - 強化されたモバイル対応 */}
-        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'top-1/5 right-1/4 w-24 h-24' : 'top-1/4 right-1/3 w-32 h-32'} bg-gradient-to-br from-[${theme.accent}]/15 to-[${theme.accent}]/8 rounded-full blur-xl`}></div>
-        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'bottom-1/3 left-1/6 w-32 h-32' : 'bottom-1/3 left-1/4 w-48 h-48'} bg-gradient-to-tl from-[${theme.accent}]/12 to-[${theme.accent}]/6 rounded-full blur-2xl`}></div>
-        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'top-1/2 right-1/8 w-20 h-20' : 'top-2/3 right-1/6 w-24 h-24'} bg-gradient-to-br from-[${theme.accent}]/18 to-[${theme.accent}]/10 rounded-full blur-lg`}></div>
-        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'top-1/6 left-1/3 w-28 h-28' : 'top-1/6 left-2/3 w-40 h-40'} bg-gradient-to-bl from-[${theme.accent}]/10 to-[${theme.accent}]/5 rounded-full blur-xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'top-1/5 right-1/4 w-20 h-20' : 'top-1/4 right-1/3 w-32 h-32'} bg-gradient-to-br from-[${theme.accent}]/15 to-[${theme.accent}]/8 rounded-full blur-xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'bottom-1/3 left-1/6 w-24 h-24' : 'bottom-1/3 left-1/4 w-48 h-48'} bg-gradient-to-tl from-[${theme.accent}]/12 to-[${theme.accent}]/6 rounded-full blur-2xl`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'top-1/2 right-1/8 w-16 h-16' : 'top-2/3 right-1/6 w-24 h-24'} bg-gradient-to-br from-[${theme.accent}]/18 to-[${theme.accent}]/10 rounded-full blur-lg`}></div>
+        <div ref={addToBackgroundRefs} className={`absolute ${isMobile ? 'top-1/6 left-1/3 w-18 h-18' : 'top-1/6 left-2/3 w-40 h-40'} bg-gradient-to-bl from-[${theme.accent}]/10 to-[${theme.accent}]/5 rounded-full blur-xl`}></div>
         
-        {/* Additional mobile-specific background elements */}
         {isMobile && (
           <>
-            <div ref={addToBackgroundRefs} className="absolute top-3/4 left-1/8 w-16 h-16 bg-gradient-to-br from-[#ABBAA9]/20 to-[#ABBAA9]/5 rounded-full blur-md"></div>
-            <div ref={addToBackgroundRefs} className="absolute top-1/8 right-2/3 w-12 h-12 bg-gradient-to-tl from-[#ABBAA9]/15 to-[#ABBAA9]/8 rounded-full blur-lg"></div>
+            <div ref={addToBackgroundRefs} className="absolute top-3/4 left-1/8 w-12 h-12 bg-gradient-to-br from-[#ABBAA9]/20 to-[#ABBAA9]/5 rounded-full blur-md"></div>
+            <div ref={addToBackgroundRefs} className="absolute top-1/8 right-2/3 w-8 h-8 bg-gradient-to-tl from-[#ABBAA9]/15 to-[#ABBAA9]/8 rounded-full blur-lg"></div>
           </>
         )}
         
-        {/* Enhanced grid pattern */}
         <div className="absolute inset-0 opacity-25">
           <div className="w-full h-full" style={{
             backgroundImage: `linear-gradient(to right, ${theme.accentGrid} 1px, transparent 1px),linear-gradient(to bottom, ${theme.accentGrid} 1px, transparent 1px)`,
-            backgroundSize: isMobile ? '24px 24px' : '40px 40px',
-            transform: isMobile ? `translateY(${scrollY * 0.5}px)` : 'none'
+            backgroundSize: isMobile ? '30px 30px' : '40px 40px',
+            transform: isMobile ? `translateY(${scrollY * 0.3}px)` : 'none'
           }}></div>
         </div>
       </div>
 
-      {/* Click Effects */}
       {clickEffects.map((effect) => (
         <div
           key={effect.id}
@@ -342,30 +316,24 @@ export default function Home() {
         </div>
       ))}
 
-      {/* Navigation */}
       <Header active="home" />
       
-      {/* Hero Section */}
-      <main className={`${isMobile ? 'pt-28 pb-12 px-4' : 'pt-32 pb-20 px-4 sm:px-8'} relative z-10`}>
+      <main className={`${isMobile ? 'pt-28 pb-8 px-6' : 'pt-32 pb-20 px-4 sm:px-8'} relative z-10`}>
         <div className={`${isMobile ? 'w-full' : 'max-w-7xl mx-auto'}`}>
-          {/* Enhanced Mobile Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
             {isMobile ? (
-              // モバイル専用装飾要素（大幅強化）
               <>
-                <div ref={addToRefs} className="absolute top-1/4 right-1/6 w-3 h-3 bg-gradient-to-br from-[#ABBAA9] to-[#ABBAA9]/60 rounded-full shadow-xl"></div>
-                <div ref={addToRefs} className="absolute top-1/3 left-1/8 w-2 h-2 bg-gradient-to-br from-[#ABBAA9]/90 to-[#ABBAA9]/40 rounded-full shadow-lg"></div>
-                <div ref={addToRefs} className="absolute bottom-1/4 right-1/3 w-4 h-4 bg-gradient-to-br from-[#ABBAA9]/80 to-[#ABBAA9]/50 rounded-full shadow-xl"></div>
-                <div ref={addToRefs} className="absolute top-1/8 left-1/2 w-12 h-0.5 bg-gradient-to-r from-[#ABBAA9]/50 to-transparent rounded-full transform rotate-15"></div>
-                <div ref={addToRefs} className="absolute top-2/3 left-1/4 w-8 h-0.5 bg-gradient-to-l from-[#ABBAA9]/40 to-transparent rounded-full transform -rotate-12"></div>
+                <div ref={addToRefs} className="absolute top-1/4 right-1/6 w-2 h-2 bg-gradient-to-br from-[#ABBAA9] to-[#ABBAA9]/60 rounded-full shadow-lg"></div>
+                <div ref={addToRefs} className="absolute top-1/3 left-1/8 w-1.5 h-1.5 bg-gradient-to-br from-[#ABBAA9]/90 to-[#ABBAA9]/40 rounded-full shadow-md"></div>
+                <div ref={addToRefs} className="absolute bottom-1/4 right-1/3 w-2.5 h-2.5 bg-gradient-to-br from-[#ABBAA9]/80 to-[#ABBAA9]/50 rounded-full shadow-lg"></div>
+                <div ref={addToRefs} className="absolute top-1/8 left-1/2 w-8 h-0.5 bg-gradient-to-r from-[#ABBAA9]/50 to-transparent rounded-full transform rotate-15"></div>
+                <div ref={addToRefs} className="absolute top-2/3 left-1/4 w-6 h-0.5 bg-gradient-to-l from-[#ABBAA9]/40 to-transparent rounded-full transform -rotate-12"></div>
                 
-                {/* モバイル専用浮遊要素 */}
-                <div ref={addToMobileFloatingRefs} className="absolute top-1/6 right-1/12 w-6 h-6 border border-[#ABBAA9]/30 rounded-full"></div>
-                <div ref={addToMobileFloatingRefs} className="absolute bottom-1/6 left-1/12 w-4 h-4 border border-[#ABBAA9]/25 rounded-full"></div>
-                <div ref={addToMobileFloatingRefs} className="absolute top-1/2 right-1/8 w-2 h-8 bg-gradient-to-b from-[#ABBAA9]/20 to-transparent rounded-full"></div>
+                <div ref={addToMobileFloatingRefs} className="absolute top-1/6 right-1/12 w-4 h-4 border border-[#ABBAA9]/30 rounded-full"></div>
+                <div ref={addToMobileFloatingRefs} className="absolute bottom-1/6 left-1/12 w-3 h-3 border border-[#ABBAA9]/25 rounded-full"></div>
+                <div ref={addToMobileFloatingRefs} className="absolute top-1/2 right-1/8 w-1.5 h-6 bg-gradient-to-b from-[#ABBAA9]/20 to-transparent rounded-full"></div>
               </>
             ) : (
-              // デスクトップ版装飾要素
               <>
                 <div ref={addToRefs} className="absolute top-1/4 right-1/4 w-3 h-3 bg-gradient-to-br from-[#ABBAA9] to-[#ABBAA9]/70 rounded-full shadow-lg"></div>
                 <div ref={addToRefs} className="absolute top-1/3 left-1/6 w-2 h-2 bg-gradient-to-br from-[#ABBAA9]/80 to-[#ABBAA9]/50 rounded-full shadow-md"></div>
@@ -377,13 +345,11 @@ export default function Home() {
             )}
           </div>
 
-          {/* Main Content - モバイル最適化レイアウト */}
-          <div className={`${isMobile ? 'flex flex-col space-y-8 min-h-[85vh] justify-center' : 'grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-[70vh]'}`}> 
-            {/* Main Text Section */}
-            <div className={`${isMobile ? 'order-1' : 'lg:col-span-8'} flex flex-col justify-center ${isMobile ? 'space-y-6' : 'space-y-8'}`}>
-              <div ref={heroTextRef} className={`${isMobile ? 'space-y-1' : 'space-y-4'}`}>
+          <div className={`${isMobile ? 'flex flex-col space-y-12 min-h-[80vh] justify-center' : 'grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-[70vh]'}`}> 
+            <div className={`${isMobile ? 'order-1' : 'lg:col-span-8'} flex flex-col justify-center ${isMobile ? 'space-y-8' : 'space-y-8'}`}>
+              <div ref={heroTextRef} className={`${isMobile ? 'space-y-2' : 'space-y-4'}`}>
                 <div 
-                  className={`${isMobile ? 'text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
+                  className={`${isMobile ? 'text-5xl sm:text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
                   style={{
                     transition: 'transform 0.1s ease-out'
                   }}
@@ -391,7 +357,7 @@ export default function Home() {
                   Creative
                 </div>
                 <div 
-                  className={`${isMobile ? 'text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
+                  className={`${isMobile ? 'text-5xl sm:text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
                   style={{
                     transition: 'transform 0.1s ease-out'
                   }}
@@ -399,7 +365,7 @@ export default function Home() {
                   Developer
                 </div>
                 <div 
-                  className={`${isMobile ? 'text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
+                  className={`${isMobile ? 'text-5xl sm:text-5xl' : 'text-6xl md:text-8xl lg:text-9xl'} font-extralight leading-none tracking-tight`}
                   style={{
                     transition: 'transform 0.1s ease-out'
                   }}
@@ -412,11 +378,11 @@ export default function Home() {
                 ref={subtitleRef} 
                 className={`${isMobile ? 'max-w-full' : 'max-w-xl'}`}
                 style={{
-                  transform: isMobile ? `translateY(${scrollY * 0.05}px)` : 'none',
+                  transform: isMobile ? `translateY(${scrollY * 0.03}px)` : 'none',
                   transition: 'transform 0.1s ease-out'
                 }}
               >
-                <p style={{ color: theme.mainText, opacity: 0.8 }} className={`${isMobile ? 'text-lg leading-relaxed' : 'text-xl md:text-2xl'} font-light leading-relaxed`}>
+                <p style={{ color: theme.mainText, opacity: 0.85 }} className={`${isMobile ? 'text-base leading-relaxed' : 'text-xl md:text-2xl'} font-light leading-relaxed`}>
                   Crafting digital experiences through the intersection of 
                   <span style={{ color: theme.accent, fontWeight: 400 }}> front-end excellence</span>, 
                   <span style={{ color: theme.accent, fontWeight: 400 }}> back-end innovation</span>, and 
@@ -425,13 +391,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column - モバイル用に順序とスタイリング調整 */}
-            <div className={`${isMobile ? 'order-2' : 'lg:col-span-4'} flex flex-col ${isMobile ? 'space-y-6' : 'justify-center space-y-10'}`}>
+            <div className={`${isMobile ? 'order-2' : 'lg:col-span-4'} flex flex-col ${isMobile ? 'space-y-8' : 'justify-center space-y-10'}`}>
               <div ref={roleRef} className="space-y-4">
-                <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
+                <div className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
                   Currently
                 </div>
-                <div className={`${isMobile ? 'text-lg' : 'text-lg'} font-light leading-relaxed`}>
+                <div className={`${isMobile ? 'text-base' : 'text-lg'} font-light leading-relaxed`}>
                   Student & Developer
                   <br />
                   <span className="text-[#ABBAA9]">Full-Stack Engineer</span>
@@ -441,24 +406,24 @@ export default function Home() {
               </div>
 
               <div className="space-y-4">
-                <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
+                <div className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
                   Focus Areas
                 </div>
-                <div className={`space-y-3 ${isMobile ? 'text-base' : 'text-sm'} font-light leading-relaxed`}>
+                <div className={`space-y-3 ${isMobile ? 'text-sm' : 'text-sm'} font-light leading-relaxed`}>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[#ABBAA9] rounded-full"></div>
+                    <div className="w-1.5 h-1.5 bg-[#ABBAA9] rounded-full"></div>
                     <span>Web Development</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[#ABBAA9] rounded-full"></div>
+                    <div className="w-1.5 h-1.5 bg-[#ABBAA9] rounded-full"></div>
                     <span>Backend Systems</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[#ABBAA9] rounded-full"></div>
+                    <div className="w-1.5 h-1.5 bg-[#ABBAA9] rounded-full"></div>
                     <span>iOS Game Development</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[#ABBAA9] rounded-full"></div>
+                    <div className="w-1.5 h-1.5 bg-[#ABBAA9] rounded-full"></div>
                     <span>UI/UX Design</span>
                   </div>
                 </div>
@@ -466,20 +431,19 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Enhanced Scroll Indicator */}
           <div
             ref={scrollIndicatorRef}
-            className={`absolute ${isMobile ? 'bottom-6 left-1/2 transform -translate-x-1/2' : 'bottom-28 right-[12rem]'} flex ${isMobile ? 'flex-col items-center space-y-2' : 'flex-col items-end space-y-1'} z-20`}
+            className={`absolute ${isMobile ? 'bottom-4 left-1/2 transform -translate-x-1/2' : 'bottom-28 right-[12rem]'} flex ${isMobile ? 'flex-col items-center space-y-2' : 'flex-col items-end space-y-1'} z-20`}
           >
             <div className={`flex items-center ${isMobile ? 'flex-col space-y-1' : 'space-x-2'}`}>
               <span className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
-                {isMobile ? 'Scroll Down' : 'Scroll'}
+                {isMobile ? 'Scroll' : 'Scroll'}
               </span>
               <span 
-                className={`${isMobile ? 'text-2xl' : 'text-2xl md:text-3xl lg:text-4xl'} select-none`} 
+                className={`${isMobile ? 'text-lg' : 'text-2xl md:text-3xl lg:text-4xl'} select-none`} 
                 style={{
                   lineHeight: 1,
-                  transform: isMobile ? `rotate(${Math.sin(Date.now() * 0.001) * 5}deg)` : 'none'
+                  transform: isMobile ? 'none' : 'none'
                 }}
               >
                 ☟
@@ -489,15 +453,14 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Enhanced Secondary Section */}
-      <section className={`${isMobile ? 'py-16 px-4' : 'py-32 px-4 sm:px-8'} relative z-10`}>
+      <section className={`${isMobile ? 'py-12 px-6' : 'py-32 px-4 sm:px-8'} relative z-10`}>
         <div className={`${isMobile ? 'w-full' : 'max-w-7xl mx-auto'}`}>
           <div className={`${isMobile ? 'flex flex-col space-y-8' : 'grid grid-cols-1 lg:grid-cols-2 gap-16'} items-center`}>
-            <div className={`${isMobile ? 'space-y-6' : 'space-y-8'}`}>
-              <div className="text-sm uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
+            <div className={`${isMobile ? 'space-y-5' : 'space-y-8'}`}>
+              <div className="text-xs uppercase tracking-[0.2em] text-[#ABBAA9] font-medium">
                 Philosophy
               </div>
-              <div className={`${isMobile ? 'text-3xl' : 'text-3xl md:text-4xl'} font-light leading-tight`}>
+              <div className={`${isMobile ? 'text-2xl' : 'text-3xl md:text-4xl'} font-light leading-tight`}>
                 Code as craft.
                 <br />
                 <span className="text-[#ABBAA9]">Design as expression.</span>
@@ -505,7 +468,7 @@ export default function Home() {
                 Technology as art.
               </div>
             </div>
-            <div className={`${isMobile ? 'space-y-5' : 'space-y-6'} ${isMobile ? 'text-lg' : 'text-lg'} font-light leading-relaxed`} style={{ color: `${theme.mainText}CC` }}>
+            <div className={`${isMobile ? 'space-y-4' : 'space-y-6'} ${isMobile ? 'text-sm' : 'text-lg'} font-light leading-relaxed`} style={{ color: `${theme.mainText}CC` }}>
               <p>
                 Every line of code is an opportunity to create something beautiful. 
                 I believe in the power of thoughtful design, clean architecture, 
@@ -520,7 +483,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
