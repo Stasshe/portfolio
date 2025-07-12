@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "../../contexts/ThemeContext";
+import { gsap } from "gsap";
 
 type Project = {
   id: string;
@@ -10,8 +11,8 @@ type Project = {
   tech: string[];
   size: string;
   color: string;
-  priority: number; // Assuming priority is a number, adjust as needed
-  date: string; // Assuming date is a string, adjust as needed
+  priority: number;
+  date: string;
   content?: string;
 };
 
@@ -22,6 +23,7 @@ type Props = {
 export default function ClientProjectGrid({ projects }: Props) {
   const { theme } = useTheme();
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [clickEffects, setClickEffects] = useState<Array<{id: number, x: number, y: number}>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -31,19 +33,88 @@ export default function ClientProjectGrid({ projects }: Props) {
 
   // Handle page clicks for geometric animations
   const handlePageClick = (e: React.MouseEvent) => {
-        const rect = containerRef.current?.getBoundingClientRect();
-        if (rect) {
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const id = Date.now() + Math.random();
-        
-        setClickEffects(prev => [...prev, { id, x, y }]);
-        
-        setTimeout(() => {
-            setClickEffects(prev => prev.filter(effect => effect.id !== id));
-        }, 350);
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const id = Date.now() + Math.random();
+      
+      setClickEffects(prev => [...prev, { id, x, y }]);
+      
+      setTimeout(() => {
+        setClickEffects(prev => prev.filter(effect => effect.id !== id));
+      }, 350);
+    }
+  };
+
+  // Handle project selection with animation
+  const handleProjectClick = (projectId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    // Find the clicked project element
+    const projectElement = projectRefs.current.find(el => 
+      el?.getAttribute('data-project-id') === projectId
+    );
+    
+    if (projectElement) {
+      // Reset previous selection
+      if (selectedProject && selectedProject !== projectId) {
+        const prevElement = projectRefs.current.find(el => 
+          el?.getAttribute('data-project-id') === selectedProject
+        );
+        if (prevElement) {
+          gsap.to(prevElement, {
+            scale: 1,
+            rotation: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
         }
-    };
+      }
+
+      // If clicking the same project, deselect it
+      if (selectedProject === projectId) {
+        setSelectedProject(null);
+        gsap.to(projectElement, {
+          scale: 1,
+          rotation: 0,
+          duration: 0.4,
+          ease: "elastic.out(1, 0.75)"
+        });
+      } else {
+        // Select new project with animation
+        setSelectedProject(projectId);
+        
+        // Create selection animation sequence
+        const tl = gsap.timeline();
+        
+        tl.to(projectElement, {
+          scale: 1.08,
+          rotation: 2,
+          duration: 0.3,
+          ease: "power2.out"
+        })
+        .to(projectElement, {
+          scale: 1.05,
+          rotation: -1,
+          duration: 0.4,
+          ease: "elastic.out(1, 0.5)"
+        })
+        .to(projectElement, {
+          rotation: 0,
+          duration: 0.2,
+          ease: "power1.out"
+        });
+
+        // Add pulsing glow effect
+        gsap.to(projectElement, {
+          boxShadow: `0 20px 60px ${theme.accent}40, 0 0 0 3px ${theme.accent}30`,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    }
+  };
 
   // Get grid size classes based on project size
   const getGridClasses = (size: string) => {
@@ -54,82 +125,82 @@ export default function ClientProjectGrid({ projects }: Props) {
       case '3x2': return 'col-span-3 row-span-2';
       case '3x3': return 'col-span-3 row-span-3';
       default: return 'col-span-1 row-span-1';
+    }
+  };
+
+  useEffect(() => {
+    // Initial animations
+    const animateElements = () => {
+      // Header animation
+      if (headerRef.current) {
+        headerRef.current.style.transform = 'translateY(-30px)';
+        headerRef.current.style.opacity = '0';
+        setTimeout(() => {
+          if (headerRef.current) {
+            headerRef.current.style.transition = 'all 0.8s ease-out';
+            headerRef.current.style.transform = 'translateY(0)';
+            headerRef.current.style.opacity = '1';
+          }
+        }, 200);
       }
+
+      // Grid projects animation
+      projectRefs.current.forEach((element, index) => {
+        if (element) {
+          element.style.transform = 'translateY(50px)';
+          element.style.opacity = '0';
+          setTimeout(() => {
+            element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            element.style.transform = 'translateY(0)';
+            element.style.opacity = '1';
+          }, 400 + index * 100);
+        }
+      });
     };
 
-    useEffect(() => {
-        // Initial animations
-        const animateElements = () => {
-        // Header animation
-        if (headerRef.current) {
-            headerRef.current.style.transform = 'translateY(-30px)';
-            headerRef.current.style.opacity = '0';
-            setTimeout(() => {
-            if (headerRef.current) {
-                headerRef.current.style.transition = 'all 0.8s ease-out';
-                headerRef.current.style.transform = 'translateY(0)';
-                headerRef.current.style.opacity = '1';
-            }
-            }, 200);
-        }
+    // Background patterns animation
+    const animateBackgroundPatterns = () => {
+      const params = backgroundPatternsRef.current.map((_, i) => ({
+        amplitude: 12 + i * 6,
+        speed: 0.12 + i * 0.05,
+        direction: i % 2 === 0 ? 1 : -1,
+        phase: Math.random() * Math.PI * 2,
+      }));
 
-        // Grid projects animation
-        projectRefs.current.forEach((element, index) => {
-            if (element) {
-            element.style.transform = 'translateY(50px)';
-            element.style.opacity = '0';
-            setTimeout(() => {
-                element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                element.style.transform = 'translateY(0)';
-                element.style.opacity = '1';
-            }, 400 + index * 100);
-            }
+      const animate = () => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const t = performance.now() / 1000;
+        backgroundPatternsRef.current.forEach((element, i) => {
+          if (!element) return;
+          const { amplitude, speed, direction, phase } = params[i];
+          const parallax = scrollY * (0.05 + i * 0.02);
+          const x = Math.sin(t * speed + phase) * amplitude * direction;
+          const y = Math.cos(t * speed + phase) * amplitude + parallax;
+          element.style.transform = `translate(${x}px, ${y}px)`;
         });
-        };
-
-        // Background patterns animation
-        const animateBackgroundPatterns = () => {
-        const params = backgroundPatternsRef.current.map((_, i) => ({
-            amplitude: 12 + i * 6,
-            speed: 0.12 + i * 0.05,
-            direction: i % 2 === 0 ? 1 : -1,
-            phase: Math.random() * Math.PI * 2,
-        }));
-
-        const animate = () => {
-            const scrollY = window.scrollY || window.pageYOffset;
-            const t = performance.now() / 1000;
-            backgroundPatternsRef.current.forEach((element, i) => {
-            if (!element) return;
-            const { amplitude, speed, direction, phase } = params[i];
-            const parallax = scrollY * (0.05 + i * 0.02);
-            const x = Math.sin(t * speed + phase) * amplitude * direction;
-            const y = Math.cos(t * speed + phase) * amplitude + parallax;
-            element.style.transform = `translate(${x}px, ${y}px)`;
-            });
-            requestAnimationFrame(animate);
-        };
-        animate();
-        };
-
-        animateElements();
-        setTimeout(animateBackgroundPatterns, 1000);
-    }, []);
-
-    const addToProjectRefs = (el: HTMLDivElement) => {
-        if (el && !projectRefs.current.includes(el)) {
-        projectRefs.current.push(el);
-        }
+        requestAnimationFrame(animate);
+      };
+      animate();
     };
 
-    const addToBackgroundRefs = (el: HTMLDivElement) => {
-        if (el && !backgroundPatternsRef.current.includes(el)) {
-        backgroundPatternsRef.current.push(el);
-        }
-    };
+    animateElements();
+    setTimeout(animateBackgroundPatterns, 1000);
+  }, []);
 
-    return (
-        <div
+  const addToProjectRefs = (el: HTMLDivElement) => {
+    if (el && !projectRefs.current.includes(el)) {
+      projectRefs.current.push(el);
+    }
+  };
+
+  const addToBackgroundRefs = (el: HTMLDivElement) => {
+    if (el && !backgroundPatternsRef.current.includes(el)) {
+      backgroundPatternsRef.current.push(el);
+    }
+  };
+
+  return (
+    <div
       ref={containerRef}
       style={{
         minHeight: '100vh',
@@ -174,7 +245,6 @@ export default function ClientProjectGrid({ projects }: Props) {
         </div>
       ))}
 
-      
       {/* Main Content */}
       <main className="pt-32 pb-20 px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
@@ -208,16 +278,24 @@ export default function ClientProjectGrid({ projects }: Props) {
               <div
                 key={project.id}
                 ref={addToProjectRefs}
+                data-project-id={project.id}
                 className={`
                   ${getGridClasses(project.size)}
                   group relative overflow-hidden rounded-2xl bg-gradient-to-br ${project.color}
                   border border-[${theme.accent}]/20 hover:border-[${theme.accent}]/40
                   transition-all duration-500 ease-out
-                  hover:shadow-xl hover:shadow-[${theme.accent}]/10
                   cursor-pointer
+                  transform-gpu
                 `}
+                style={{
+                  // Always have floating effect
+                  boxShadow: `0 10px 30px ${theme.accent}20, 0 0 0 1px ${theme.accent}10`,
+                  transform: 'translateY(0px)',
+                  zIndex: selectedProject === project.id ? 20 : 10
+                }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
+                onClick={(e) => handleProjectClick(project.id, e)}
               >
                 {/* Content */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-between">
@@ -241,11 +319,19 @@ export default function ClientProjectGrid({ projects }: Props) {
                       ))}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: theme.accent, fontWeight: 300, fontSize: '0.875rem' }}>
-                      <span>View Project</span>
-                      <div style={{ width: '0.25rem', height: '0.25rem', backgroundColor: theme.accent, borderRadius: '9999px', transform: hoveredProject === project.id ? 'translateX(0.25rem)' : undefined, transition: 'all 0.3s' }}></div>
+                      <span>{selectedProject === project.id ? 'Selected' : 'View Project'}</span>
+                      <div style={{ 
+                        width: '0.25rem', 
+                        height: '0.25rem', 
+                        backgroundColor: theme.accent, 
+                        borderRadius: '9999px', 
+                        transform: hoveredProject === project.id ? 'translateX(0.25rem)' : undefined, 
+                        transition: 'all 0.3s' 
+                      }}></div>
                     </div>
                   </div>
                 </div>
+                
                 {/* Hover Effect Overlay */}
                 <div style={{
                   position: 'absolute',
@@ -254,6 +340,12 @@ export default function ClientProjectGrid({ projects }: Props) {
                   opacity: hoveredProject === project.id ? 1 : 0,
                   transition: 'all 0.3s',
                 }}></div>
+                
+                {/* Selection Indicator */}
+                {selectedProject === project.id && (
+                  <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-br from-[#ABBAA9] to-[#8FA286] rounded-full animate-pulse shadow-lg"></div>
+                )}
+                
                 {/* Decorative Elements */}
                 <div style={{ position: 'absolute', top: '1rem', right: '1rem', width: '0.5rem', height: '0.5rem', backgroundColor: theme.accent + '4D', borderRadius: '9999px' }}></div>
                 <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', width: hoveredProject === project.id ? '3rem' : '2rem', height: '0.125rem', backgroundColor: theme.accent + '66', borderRadius: '9999px', transition: 'all 0.3s' }}></div>
@@ -284,5 +376,5 @@ export default function ClientProjectGrid({ projects }: Props) {
         </div>
       </main>
     </div>    
-    );
+  );
 }
