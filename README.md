@@ -35,8 +35,28 @@ npm run dev
 - アイコン・UIパーツ：独自コンポーネント（`src/components/ui/`）
 - 状態管理：React Context（例：ThemeContext）
 - フォント：Geist（next/fontによる最適化）
-- Lint：ESLint
+- Lint：Biome（ESLint の代替）
 - その他：PostCSS, Vercelデプロイ対応
+
+## Biome の使用方法
+
+1. 開発依存として Biome をインストール
+
+```bash
+npm install -D biome
+```
+
+2. フォーマット
+
+```bash
+npm run format
+```
+
+3. リント
+
+```bash
+npm run lint
+```
 
 ## 主なページ
 
